@@ -9,6 +9,7 @@ import Services from './pages/Services';
 import About from './pages/About';
 import Login from './pages/Login';
 import Orders from './pages/Orders'; // Public tracking
+import Galleries from './pages/Galleries';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="my-orders" element={<Orders />} />
         </Route>
+        
 
         {/* --- 5. REDIRECTS & 404 --- */}
         <Route path="*" element={<Navigate to="/" replace />} />

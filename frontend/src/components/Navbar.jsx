@@ -107,12 +107,12 @@ const Navbar = () => {
           
           <Link to="/" onClick={handleLinkClick} className="flex items-center gap-3 group">
             <motion.div whileHover={{ scale: 1.05 }} className="relative">
-               <img src={logo} alt="Logo" className="w-10 h-10 rounded-lg shadow-lg group-hover:shadow-red-600/20 transition-all" />
+               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG1T9H15Jzn7wldUe9Rf_EgcMa-5XILOSRn8BHYkKKbg&s" alt="Logo" className="w-10 h-10 rounded-lg shadow-lg group-hover:shadow-red-600/20 transition-all" />
                <div className="absolute -inset-1 bg-red-600/20 blur opacity-0 group-hover:opacity-100 transition-opacity rounded-lg" />
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-black dark:text-white font-black text-2xl tracking-tighter uppercase leading-none">Hachalu</span>
-              <span className="text-red-600 font-bold text-[8px] tracking-[0.5em] uppercase">Protocol</span>
+              <span className="text-black dark:text-white font-black text-2xl tracking-tighter uppercase leading-none">DMN</span>
+              <span className="text-red-600 font-bold text-[8px] tracking-[0.5em] uppercase">Agency</span>
             </div>
           </Link>
 

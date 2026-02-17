@@ -1,152 +1,227 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { HiOutlineShoppingBag, HiChevronRight, HiChevronLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
+import { HiOutlineArrowLongRight, HiChevronRight, HiChevronLeft, HiPlus } from 'react-icons/hi2';
+import Contact from './Contact';
+
 import { products } from '../hooks/productData';
 
-const suits = [
+// Cultural and Media Data
+const mediaSlides = [
   {
     id: 1,
-    title: "Midnight Peak Lapel",
-    price: "ETB 18,500",
-    image: "https://i.ebayimg.com/images/g/5RcAAOSwZc5k2eQ4/s-l1600.webp",
-    desc: "Precision cut tailored wool for the modern executive."
+    title: "Halala Kella",
+    subtitle: "The Pride of Dawuro",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYtoNl5BI2UBep0OTqs-dkKU0KbUma0wEkqg&s", // Representative of luxury/resort
+    desc: "A breathtaking destination showcasing the natural beauty and hospitality of the South West Ethiopia Peoples' Region."
   },
   {
     id: 2,
-    title: "Charcoal 3-Piece",
-    price: "ETB 21,000",
-    image: "https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=1480&auto=format&fit=crop",
-    desc: "Heritage weaving meets contemporary architectural fit."
+    title: "Gebero Mountain",
+    subtitle: "Historic Landmark",
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1470&auto=format&fit=crop", // Representative of highlands
+    desc: "Documenting the ancient history and cultural significance of the mountains that define our heritage."
   },
   {
     id: 3,
-    title: "Arctic White Tuxedo",
-    price: "ETB 24,500",
-    image: "https://image.made-in-china.com/2f0j00kKQlobaGJcqp/OEM-Suits-Suits-Work-Clothes-Company-Formal-Suits-for-Men-and-Women.webp",
-    desc: "A bold statement piece for the most exclusive evening events."
+    title: "Cultural Rhythm",
+    subtitle: "Music & Arts",
+    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1470&auto=format&fit=crop", // Representative of media/music
+    desc: "Nurturing the minds of our community through the vibrant sounds of Yitagesu Hoshu and local legends."
   }
 ];
 
 const Home = () => {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null); // For the overlay
   const navigate = useNavigate();
 
-  // Integrated Auto-play with Pause on Hover
+  // Auto-play logic
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % suits.length);
+      setIndex((prev) => (prev + 1) % mediaSlides.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  const nextSlide = () => setIndex((prev) => (prev + 1) % suits.length);
-  const prevSlide = () => setIndex((prev) => (prev - 1 + suits.length) % suits.length);
-
   return (
-    <div className="min-h-screen bg-white dark:bg-[#080808] transition-colors duration-500 overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#050505] transition-colors duration-500">
       
-      {/* HERO SECTION */}
+      {/* --- HERO SECTION: IMAGE FIRST ON MOBILE --- */}
       <section 
-        className="relative h-screen flex flex-col lg:flex-row items-center"
+        className="relative h-screen flex flex-col dark:text-white dark:bg-[#050505] lg:flex-row overflow-hidden"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        {/* TEXT CONTENT */}
-        <div className="w-full lg:w-1/2 px-6 md:px-10 lg:px-24 z-10 flex flex-col justify-center h-full pt-20">
-          <div className="relative h-80 lg:h-96">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 50 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute w-full"
-              >
-                <span className="text-red-600 font-black tracking-[0.4em] uppercase text-[10px] md:text-xs">New Collection 2026</span>
-                <h3 className="text-5xl md:text-7xl lg:text-8xl font-black text-black dark:text-white mt-4 leading-[0.9] uppercase tracking-tighter">
-                  {suits[index].title.split(' ')[0]} <br /> 
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">
-                    {suits[index].title.split(' ').slice(1).join(' ')}
-                  </span>
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 mt-6 max-w-sm text-sm md:text-lg italic leading-relaxed">
-                  "{suits[index].desc}"
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <div className="mt-8 md:mt-12 flex flex-wrap gap-4 items-center">
-            <button 
-              onClick={() => navigate('/items')}
-              className="bg-black dark:bg-white dark:text-black text-white px-8 py-4 md:px-10 md:py-5 font-black uppercase tracking-widest text-[10px] md:text-xs flex items-center gap-3 hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all shadow-2xl active:scale-95"
-            >
-              Shop Collection <HiOutlineShoppingBag size={18} />
-            </button>
-            <div className="flex gap-2">
-              <button onClick={prevSlide} className="p-4 border border-gray-200 dark:border-white/10 dark:text-white hover:bg-red-600 hover:border-red-600 hover:text-white transition-all"><HiChevronLeft /></button>
-              <button onClick={nextSlide} className="p-4 border border-gray-200 dark:border-white/10 dark:text-white hover:bg-red-600 hover:border-red-600 hover:text-white transition-all"><HiChevronRight /></button>
-            </div>
-          </div>
-        </div>
-
-        {/* IMAGE AREA */}
-        <div className="w-full lg:w-1/2 h-[50vh] lg:h-full relative overflow-hidden bg-gray-100 dark:bg-zinc-900 group cursor-pointer" onClick={() => navigate('/items')}>
+        {/* IMAGE AREA (Top on Mobile, Right on Desktop) */}
+        <div className="w-full lg:w-3/5 h-1/2 lg:h-full relative order-1 lg:order-2">
           <AnimatePresence mode="wait">
             <motion.div
-              key={suits[index].id}
+              key={index}
               initial={{ scale: 1.2, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 1.1, opacity: 0 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5 }}
               className="absolute inset-0"
             >
               <img
-                src={suits[index].image}
-                className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000"
-                alt="Luxury Suit"
+                src={mediaSlides[index].image}
+                className="w-full h-full object-cover"
+                alt="Dawuro Media"
               />
-              {/* Dynamic Bottom Description Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-10">
-                <p className="text-white font-black uppercase tracking-[0.2em] text-xs mb-2">Exclusive Piece</p>
-                <p className="text-gray-300 text-sm italic max-w-sm">{suits[index].desc}</p>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#050505] lg:to-transparent" />
             </motion.div>
           </AnimatePresence>
 
-          {/* PROGRESS DOTS */}
-          <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex gap-3 z-30">
-            {suits.map((_, i) => (
-              <button key={i} onClick={(e) => { e.stopPropagation(); setIndex(i); }} 
-                className={`h-1 transition-all duration-700 rounded-full ${index === i ? "w-16 md:w-24 bg-red-600" : "w-4 md:w-8 bg-white/30"}`} 
+          {/* Navigation Dots */}
+          <div className="absolute bottom-6 left-6 flex gap-2 z-20">
+            {mediaSlides.map((_, i) => (
+              <button 
+                key={i} 
+                onClick={() => setIndex(i)}
+                className={`h-1 transition-all duration-500 ${index === i ? "w-12 bg-red-600" : "w-4 bg-white/30"}`} 
               />
             ))}
           </div>
         </div>
-      </section>
 
-      {/* FEATURE STRIP */}
-      <section className="py-20 bg-gray-50 dark:bg-[#0c0c0c] border-y border-gray-100 dark:border-white/5">
-        <div className="w-full px-6 lg:px-16 grid grid-cols-1 md:grid-cols-3 gap-12">
-           <FeatureCard title="Ethiopian Craft" desc="Hand-stitched excellence from the heart of Addis." />
-           <FeatureCard title="Bespoke Fit" desc="Custom measurements for a truly personal silhouette." />
-           <FeatureCard title="Global Shipping" desc="Luxury delivery to major fashion capitals." />
+        {/* TEXT CONTENT (Bottom on Mobile, Left on Desktop) */}
+        <div className="w-full lg:w-2/5 h-1/2 lg:h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 z-10 bg-[#050500] dark:bg-[#080808] order-2 lg:order-1">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-6"
+          >
+            <span className="text-red-600 font-bold tracking-[0.5em] uppercase text-xs block">
+              {mediaSlides[index].subtitle}
+            </span>
+            <h1 className="text-4xl md:text-7xl font-black text-white leading-none uppercase tracking-tighter">
+              {mediaSlides[index].title.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">
+                {mediaSlides[index].title.split(' ').slice(1).join(' ')}
+              </span>
+            </h1>
+            <p className="text-gray-400 max-w-sm text-sm md:text-lg italic">
+              "{mediaSlides[index].desc}"
+            </p>
+            
+            <div className="flex gap-4 pt-4">
+              <button 
+                onClick={() => navigate('/about')}
+                className="bg-white text-black px-8 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-red-600 hover:text-white transition-all active:scale-95"
+              >
+                Read More
+              </button>
+              <div className="flex">
+                <button onClick={() => setIndex((index - 1 + mediaSlides.length) % mediaSlides.length)} className="p-4 border border-white/10 text-white hover:bg-white hover:text-black transition-all"><HiChevronLeft /></button>
+                <button onClick={() => setIndex((index + 1) % mediaSlides.length)} className="p-4 border border-white/10 text-white hover:bg-white hover:text-black transition-all"><HiChevronRight /></button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
+
+      {/* --- ABOUT SECTION --- */}
+      <section className="py-24 px-6 md:px-24 bg-white dark:bg-[#080808]">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+          <div className="w-full lg:w-1/2">
+            <h2 className="text-sm font-bold text-red-600 tracking-[0.3em] uppercase mb-4">Our Purpose</h2>
+            <h3 className="text-4xl md:text-5xl font-black dark:text-white uppercase tracking-tighter mb-6">
+              Nurturing Minds, <br/> Connecting Hearts.
+            </h3>
+            <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-lg mb-8">
+              New Dawuro Media (NDM) is the digital bridge for the Dawuro Zone. We don't just share news; 
+              we preserve the soul of the South West Regional State of Ethiopia.
+            </p>
+            <Link to="/about" className="inline-flex items-center gap-2 font-black uppercase text-xs tracking-widest dark:text-white hover:text-red-600 transition-colors">
+              Explore Our History <HiOutlineArrowLongRight size={20} />
+            </Link>
+          </div>
+          <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
+            <div className="h-64 bg-zinc-100 dark:bg-zinc-900 rounded-sm overflow-hidden">
+               <img src="https://images.unsplash.com/photo-1523050335392-9bf5675f42e8?q=80&w=1470&auto=format&fit=crop" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Education" />
+            </div>
+            <div className="h-64 bg-zinc-100 dark:bg-zinc-900 rounded-sm mt-8 overflow-hidden">
+               <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1470&auto=format&fit=crop" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Music" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- GRID LIST SECTION (INTERACTIVE) --- */}
+      <section className="py-24 px-6 md:px-24 border-t border-gray-100 dark:border-white/5">
+        <div className="flex justify-between items-end mb-16">
+          <div>
+            <span className="text-red-600 font-black tracking-widest text-[10px] uppercase">NDM Features</span>
+            <h2 className="text-4xl font-black dark:text-white uppercase tracking-tighter">Explore Dawuro</h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <MediaCard 
+            title="Music & Art" 
+            category="Entertainment"
+            img="https://images.unsplash.com/photo-1459749411177-042180ceea72?q=80&w=1470&auto=format&fit=crop"
+            onClick={() => setSelectedItem({ title: "Music & Art", detail: "Featuring Dawuro artists like Yitagesu Hoshu and Asnake Lota. We bring new Ethiopian music to the global stage." })}
+          />
+          <MediaCard 
+            title="One Pack One Child" 
+            category="Community"
+            img="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1470&auto=format&fit=crop"
+            onClick={() => setSelectedItem({ title: "Social Initiative", detail: "Our campaign providing essential educational materials to students across the Dawuro Zone." })}
+          />
+          <MediaCard 
+            title="Gebero Mountain" 
+            category="Documentary"
+            img="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1470&auto=format&fit=crop"
+            onClick={() => setSelectedItem({ title: "Gebero History", detail: "Deep-dive documentaries featuring interviews with community elders about our sacred landmarks." })}
+          />
+        </div>
+      </section>
+
+      {/* --- OVERLAY MODAL --- */}
+      <AnimatePresence>
+        {selectedItem && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/90 backdrop-blur-md"
+            onClick={() => setSelectedItem(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              className="bg-white dark:bg-zinc-900 p-8 md:p-12 max-w-2xl w-full relative"
+              onClick={e => e.stopPropagation()}
+            >
+              <button onClick={() => setSelectedItem(null)} className="absolute top-4 right-4 dark:text-white"><HiPlus className="rotate-45" size={24}/></button>
+              <h3 className="text-red-600 font-black uppercase tracking-widest text-xs mb-2">Details</h3>
+              <h2 className="text-3xl font-black dark:text-white uppercase mb-6">{selectedItem.title}</h2>
+              <p className="text-gray-500 dark:text-gray-300 text-lg leading-relaxed">{selectedItem.detail}</p>
+              <button 
+                onClick={() => setSelectedItem(null)}
+                className="mt-8 bg-black dark:bg-white dark:text-black text-white px-6 py-3 font-bold uppercase text-[10px] tracking-widest"
+              >
+                Close View
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* PRODUCT GRID PREVIEW */}
       <section className="py-24 px-6 md:px-10 lg:px-24">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
           <div>
-            <span className="text-red-600 font-black tracking-[0.3em] uppercase text-[10px]">Ready to Wear</span>
-            <h2 className="text-4xl md:text-5xl font-black dark:text-white uppercase tracking-tighter mt-2">New Arrivals</h2>
+            <span className="text-red-600 font-black tracking-[0.3em] uppercase text-[10px]">Ready to View</span>
+            <h2 className="text-4xl md:text-5xl font-black dark:text-white uppercase tracking-tighter mt-2">Our Galleries?</h2>
           </div>
-          <Link to="/items" className="text-black dark:text-white font-black uppercase text-[10px] tracking-widest flex items-center gap-2 hover:text-red-600 transition-colors">
-            View All Collection <HiOutlineArrowLongRight size={20} />
+          <Link to="/items" className="text-black dark:text-white font-black uppercase text-[14px] tracking-widest flex items-center gap-2 hover:text-red-600 transition-colors">
+            View All<HiOutlineArrowLongRight size={20} />
           </Link>
         </div>
 
@@ -156,18 +231,32 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+      <Contact />
+      
     </div>
   );
 };
 
-const FeatureCard = ({ title, desc }) => (
-  <div className="group">
-    <div className="h-[2px] w-full bg-gray-200 dark:bg-white/10 mb-6 overflow-hidden">
-        <div className="h-full bg-red-600 w-0 group-hover:w-full transition-all duration-700" />
+const MediaCard = ({ title, category, img, onClick }) => (
+  <motion.div 
+    whileHover={{ y: -10 }}
+    className="group cursor-pointer"
+    onClick={onClick}
+  >
+    <div className="aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-zinc-900 mb-6 relative">
+      <img src={img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" alt={title} />
+      <div className="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+        <div className="bg-white text-black p-4 rounded-full shadow-2xl">
+          <HiPlus size={24} />
+        </div>
+      </div>
     </div>
-    <h3 className="text-black dark:text-white font-black uppercase text-xs tracking-[0.2em] mb-3">{title}</h3>
-    <p className="text-gray-500 dark:text-gray-400 text-[11px] leading-relaxed uppercase tracking-widest">{desc}</p>
-  </div>
+    <div className="space-y-1">
+      <h3 className="text-black dark:text-white font-black uppercase text-sm tracking-tighter">{title}</h3>
+      <p className="text-red-600 text-[10px] font-bold uppercase tracking-widest">{category}</p>
+    </div>
+  </motion.div>
 );
 
 const ProductCard = ({ product, navigate }) => (

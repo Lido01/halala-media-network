@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar'; // Your existing Navbar
 import Footer from '../components/Footer';
+import Galleries from '../pages/Galleries';
 
 const MainLayout = () => {
   return (

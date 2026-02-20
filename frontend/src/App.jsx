@@ -4,11 +4,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 // Public Pages
 import Home from './pages/Home';
-import Items from './pages/Items';
+// import Items from './pages/Galleries';
 import Services from './pages/Services';
 import About from './pages/About';
-import Login from './pages/Login';
-import Orders from './pages/Orders'; // Public tracking
+import Auth from './pages/Auth';
+import Projects from './pages/Projects';
 import Galleries from './pages/Galleries';
 
 
@@ -17,15 +17,15 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* --- 1. LOGIN --- */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Auth />} />
 
         {/* --- 2. PUBLIC ROUTES --- */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="items" element={<Items />} />
+          <Route path="gallery" element={<Galleries />} />
           <Route path="services" element={<Services />} />
           <Route path="about" element={<About />} />
-          <Route path="my-orders" element={<Orders />} />
+          <Route path="our-projects" element={<Projects />} />
         </Route>
         
 

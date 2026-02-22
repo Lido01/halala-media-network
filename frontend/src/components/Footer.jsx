@@ -101,8 +101,8 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="text-center md:text-left">
-            <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.4em]">
-              © {currentYear} DAWURO MEDIA NETWORK. PRESERVING STRENGTH & UNITY.
+            <p className="text-[9px] text-gray-400 font-bold  tracking-[0.4em]">
+              © {currentYear} Developed by, <strong>LIDETU TESFAYE(Software Developer)</strong>
             </p>
           </div>
 

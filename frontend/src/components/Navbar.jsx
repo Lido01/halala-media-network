@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { supabase } from '../../supabaseClient';
 import { 
   HiBars3BottomRight as HiMenuAlt3,
   HiXMark as HiX,
@@ -12,9 +13,48 @@ import {
   HiOutlineCpuChip,
   HiOutlineCubeTransparent,
   HiOutlineArrowRight,
+  HiOutlineUserCircle as HiOutlineLogout
 } from 'react-icons/hi2';
 
 const Navbar = () => {
+  // --- UPDATED AUTH LOGIC ---
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 1. Check current session on mount
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setUser(session.user);
+        setIsLoggedIn(true);
+      }
+    };
+    checkUser();
+
+    // 2. Listen for Auth Changes (Login/Logout)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setUser(session.user);
+        setIsLoggedIn(true);
+      } else {
+        setUser(null);
+        setIsLoggedIn(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setIsLoggedIn(false);
+    setUser(null);
+    navigate('/');
+    handleLinkClick();
+  };
+  // ---------------------------
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [scrolled, setScrolled] = useState(false);
@@ -22,6 +62,7 @@ const Navbar = () => {
   const [mobileAccordion, setMobileAccordion] = useState(null);
   
   const location = useLocation();
+  const navigate = useNavigate();
 
   // THEME LOGIC
   useEffect(() => {
@@ -77,7 +118,8 @@ const Navbar = () => {
       ] 
     },
     { name: 'About', href: '/about' },
-    { name: 'Our Projects', href: '/our-projects' }
+    { name: 'Our Projects', href: '/our-projects' },
+    { name: 'Donate', href: '/donate' }
   ];
 
   return (
@@ -99,7 +141,7 @@ const Navbar = () => {
             <span className="flex items-center gap-2"><span className="w-1 h-1 bg-[#ffcc00] rounded-full animate-pulse" /> Heritage Node: Active</span>
             <span className="text-white/60">Dawuro, South West Ethiopia</span>
           </div>
-          <span className="italic font-bold">Dawuro Media Network • DMN</span>
+          <span className="italic font-bold text-white/80 tracking-widest">Dawuro Media Network • DMN</span>
         </div>
       </div>
 
@@ -108,7 +150,7 @@ const Navbar = () => {
         onMouseLeave={() => setActiveMenu(null)}
         className={`w-full z-[100] transition-all duration-500 border-b ${
           scrolled 
-          ? 'fixed top-0 bg-white/90 dark:bg-black/90 backdrop-blur-xl border-yellow-600/10 py-3 shadow-xl' 
+          ? 'fixed top-0 bg-white/90 dark:bg-black/95 backdrop-blur-xl border-yellow-600/10 py-3 shadow-xl' 
           : 'relative bg-white dark:bg-[#0a0a0a] border-gray-100 dark:border-white/5 py-6'
         }`}
       >
@@ -156,10 +198,34 @@ const Navbar = () => {
               {isDarkMode ? <HiSun size={18} /> : <HiMoon size={18} />}
             </button>
 
-            <Link to="/login" className="hidden md:flex items-center gap-3 bg-black dark:bg-[#ffcc00] dark:text-black text-white text-[10px] font-black px-6 py-2.5 uppercase tracking-widest transition-all hover:bg-[#cc0000] hover:text-white group">
-              Access Hub
-              <HiOutlineArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </Link>
+            {/* CONDITIONAL LOGIN/LOGOUT UI */}
+            <div className="hidden md:flex items-center border-l border-gray-200 dark:border-white/10 pl-4 ml-2 gap-3">
+              {isLoggedIn ? (
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-col items-end">
+                    <span className="text-[9px] uppercase tracking-tighter text-gray-400 font-bold leading-none">Verified User</span>
+                    <span className="text-xs font-black dark:text-[#ffcc00] text-black uppercase">
+                        {user?.user_metadata?.full_name || user?.email?.split('@')[0]}
+                    </span>
+                  </div>
+                  <button 
+                    onClick={handleLogout}
+                    className="p-2.5 rounded-full bg-red-50 dark:bg-red-500/10 text-[#cc0000] hover:bg-[#cc0000] hover:text-white transition-all flex items-center justify-center group"
+                    title="Logout"
+                  >
+                    <HiOutlineLogout size={18} className="group-hover:-translate-x-0.5 transition-transform" />
+                  </button>
+                </div>
+              ) : (
+                <Link 
+                  to="/login" 
+                  className="flex items-center gap-3 bg-black dark:bg-[#ffcc00] dark:text-black text-white text-[10px] font-black px-6 py-2.5 uppercase tracking-widest transition-all hover:bg-[#cc0000] hover:text-white group"
+                >
+                  Access Hub
+                  <HiOutlineArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              )}
+            </div>
 
             <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 text-gray-900 dark:text-white hover:text-red-600 transition-colors">
               <HiMenuAlt3 size={28} />
@@ -167,7 +233,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* MEGA MENU (CULTURAL STRIPE THEMED) */}
+        {/* MEGA MENU (kept as is) */}
         <AnimatePresence>
           {activeMenu && menuItems.find(m => m.name === activeMenu)?.subItems && (
             <motion.div
@@ -208,7 +274,7 @@ const Navbar = () => {
         </AnimatePresence>
       </nav>
 
-      {/* MOBILE DRAWER (CULTURAL THEMED) */}
+      {/* MOBILE DRAWER */}
       <AnimatePresence>
         {isSidebarOpen && (
           <>
@@ -217,13 +283,28 @@ const Navbar = () => {
               initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
               className="fixed right-0 top-0 h-full w-[85%] bg-white dark:bg-[#050505] z-[210] p-10 flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.5)] border-l-4 border-[#ffcc00]"
             >
-              <div className="flex justify-between items-center mb-16">
+              <div className="flex justify-between items-center mb-10">
                  <div className="flex flex-col">
                   <span className="text-black dark:text-white font-black text-2xl uppercase tracking-tighter leading-none">DMN</span>
                   <span className="text-[#cc0000] font-bold text-[8px] tracking-[0.5em] uppercase">Dawuro Heritage</span>
                 </div>
                 <button onClick={() => setIsSidebarOpen(false)} className="p-3 bg-gray-100 dark:bg-white/5 rounded-full dark:text-white hover:bg-red-600 hover:text-white transition-all"><HiX size={24} /></button>
               </div>
+
+              {/* MOBILE USER PROFILE */}
+              {isLoggedIn && (
+                <div className="mb-10 p-5 bg-gray-50 dark:bg-white/5 rounded-2xl flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[#ffcc00] text-black flex items-center justify-center rounded-full font-black text-xl">
+                    {user?.user_metadata?.full_name?.charAt(0) || user?.email?.charAt(0)}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-gray-400 text-[9px] uppercase font-bold tracking-widest">Logged In</span>
+                    <span className="text-black dark:text-white font-black uppercase text-sm">
+                        {user?.user_metadata?.full_name || user?.email?.split('@')[0]}
+                    </span>
+                  </div>
+                </div>
+              )}
 
               <div className="flex-1 space-y-6 overflow-y-auto">
                 {menuItems.map((item) => (
@@ -249,7 +330,22 @@ const Navbar = () => {
               </div>
 
               <div className="pt-8">
-                 <Link to="/login" onClick={handleLinkClick} className="block w-full py-5 bg-[#cc0000] text-white font-black text-center uppercase text-xs tracking-[.2em] shadow-xl">Secure Access Hub</Link>
+                 {isLoggedIn ? (
+                   <button 
+                    onClick={handleLogout} 
+                    className="flex w-full items-center justify-center gap-3 py-5 bg-gray-900 dark:bg-white dark:text-black text-white font-black uppercase text-xs tracking-[.2em]"
+                   >
+                     Logout <HiOutlineLogout size={16} />
+                   </button>
+                 ) : (
+                   <Link 
+                    to="/login" 
+                    onClick={handleLinkClick} 
+                    className="block w-full py-5 bg-[#cc0000] text-white font-black text-center uppercase text-xs tracking-[.2em] shadow-xl"
+                   >
+                     Secure Access Hub
+                   </Link>
+                 )}
               </div>
             </motion.aside>
           </>

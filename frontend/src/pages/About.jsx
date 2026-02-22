@@ -6,17 +6,16 @@ import { HiOutlineUserGroup, HiOutlineGlobeEuropeAfrica, HiOutlineHandRaised, Hi
 const teamMembers = [
   {
     id: 1,
-    name: "Founder Name",
+    name: "Ashenaf Dawuro",
     role: "Founder & Executive Director",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1374&auto=format&fit=crop",
+    image: "https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/550903347_1360059828832809_493224018218068470_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeH1gMJXhbLlpq_-h7I9wJpe4FjYyK2PUZbgWNjIrY9Rli4OKPDCCf1MwVzJbAx9eCJcMOPjb2nAsXeXws5JPdLd&_nc_ohc=9Z_1tlPQYZ8Q7kNvwFrMxnn&_nc_oc=AdkM-1g3Cq9fy-Q6X2W4q8GgYCDUc0L_TebPJTMiChnUw3L-QEdwDyh7YjGr5LTV1yQ&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=6YVayHj4lw4moLKrfQ7Lqg&oh=00_AfuMd_O-VNlt-SCGveQYhtdJIjSFEYJz6izecgP2sAPCmQ&oe=699FE778",
     bio: "Visionary leader dedicated to bridging Dawuro's ancient history with global digital media."
   },
   {
     id: 2,
-    name: "Lidetu Tesfaye",
-    role: "Creative Developer & Media Lead",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1374&auto=format&fit=crop",
-    bio: "Architecting the digital presence of the South West Region through innovative storytelling."
+    name: "Million Erbello",
+    role: "Creative Developer & Media Leader",
+    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/523267994_5188610077947191_55263879207272779_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeGI3dunD6SL-JjKK5U2qSqMdFmn_WBBxXt0Waf9YEHFex4qj6eDot8WggcXROfZtzOTCfvv6yXqHeS5qTg-O2oU&_nc_ohc=w_AS1qz9iGQQ7kNvwFeJN6H&_nc_oc=Adm4HZKzybZksDp0Tv6yWBEOgJmx3y7ra00Gx9ALZIUSUTo-DnKI8lNJdh-fWLYdjxA&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=yxHLwy4QHgdcu_x82waqig&oh=00_AftoUxmetEKN4xxUpBopeHwGRDlzbgF7ryOeQWKuA2Ttlg&oe=699FF31F"
   },
   {
     id: 3,
@@ -46,7 +45,7 @@ const About = () => {
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=1470" 
-            className="w-full h-full object-cover grayscale opacity-50 contrast-125"
+            className="w-full h-full object-cover opacity-50 contrast-125"
             alt="Dawuro Landscape"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#050505]" />
@@ -93,8 +92,8 @@ const About = () => {
           <div className="relative group">
             <div className="absolute -inset-4 border-2 border-[#cc0000]/20 translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700" />
             <img 
-              src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1470" 
-              className="w-full aspect-[4/5] md:aspect-square object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 relative z-10"
+              src="https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/529411365_1267478112056842_5887702713659867637_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeHK3jcp01Y2DcG8u8BF3WhGdM4OfrI5E050zg5-sjkTTlCsE8oXiChehbvHAM8wt5KS386695XEuf3K20pbzSjZ&_nc_ohc=A6yfgeDZcugQ7kNvwFEk5FK&_nc_oc=AdlAN23F-VrWZS70ccykFaaxCQeI74FOqUUi3-G26fhqsKKNRO-SS6JGGV2PdFWP2Cs&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=8VcpIWAGJ0rf298u4nlLdA&oh=00_AfufgMW6jZ3WJ1tCUG5QfY6l35H5vcZj0qvc4bHYNWxKYA&oe=69A04BB5" 
+              className="w-full aspect-[4/5] md:aspect-square object-cover group-hover:grayscale-0 transition-all duration-1000 relative z-10"
               alt="Cultural Gathering"
             />
             <div className="absolute -bottom-6 -right-6 bg-[#cc0000] text-white p-8 z-20 hidden md:block">
@@ -146,7 +145,7 @@ const About = () => {
                 className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
               >
                 <div className="aspect-[4/5] bg-gray-100 dark:bg-zinc-900 overflow-hidden border-b-8 border-[#ffcc00]">
-                  <img src={teamMembers[teamIndex].image} className="w-full h-full object-cover grayscale" alt={teamMembers[teamIndex].name} />
+                  <img src={teamMembers[teamIndex].image} className="w-full h-full object-cover" alt={teamMembers[teamIndex].name} />
                 </div>
                 <div className="space-y-8">
                   <span className="bg-[#cc0000] text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest">{teamMembers[teamIndex].role}</span>

@@ -15,7 +15,7 @@ const services = [
     desc: "Preserving the South West's oral history through high-definition cinematography. We document the legends of Halala Kella and the wisdom of our elders for future generations.",
     features: ["4K Historical Documentaries", "Elder Interview Series", "Gebero Mountain Expeditions"],
     icon: <HiOutlineCamera size={32} />,
-    img: "https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=1480" // Replace with local cultural image
+    img: "https://i.playboard.app/p/AIdro_lrV-CPjosPydzeuAxvxqntdp5YAEz6NkwECcHDoFA9JPQN/default.jpg" // Replace with local cultural image
   },
   {
     id: "02",
@@ -31,7 +31,7 @@ const services = [
     desc: "Beyond media, we are a force for good. Through our 'One Pack One Child' initiative and educational workshops, we use media to drive social change and youth empowerment.",
     features: ["Education Material Drive", "Youth Media Training", "Regional Charity Events"],
     icon: <HiOutlineAcademicCap size={32} />,
-    img: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1470"
+    img: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/505177278_1028266912757059_8262146874356443306_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFg9GIWBT1WO1bCxo1RRuCW5zuFXknTSZznO4VeSdNJnOoFRMSFn2LsqCaNH7hEkSEBsumS-kl0fm3AxE6Fk-tQ&_nc_ohc=b7VXEDznTXgQ7kNvwG5PljD&_nc_oc=AdlhD2bkxlbSVFAO4i6yrjmkjtyNxKqgGLqWF-YOo9KtSXypbIRpDMl6fq4PW1KvCpw&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=lHYsLkQT7CS9wgo_HAzA_g&oh=00_AfsOC6xzyVcAzdkmeQQYCgNsHKvYEK3Sj4BOekNMQ1Uhqw&oe=699FEE8B"
   }
 ];
 
@@ -96,7 +96,7 @@ const Services = () => {
               >
                 <img 
                   src={service.img} 
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]" 
+                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]" 
                   alt={service.title} 
                 />
                 {/* Floating ID Card */}

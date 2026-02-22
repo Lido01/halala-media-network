@@ -8,11 +8,18 @@ import { products } from '../hooks/productData';
 
 // Cultural and Media Data with Enhanced Descriptions
 const mediaSlides = [
-  {
+    {
     id: 1,
+    title: "Dawuro Rhythm",
+    subtitle: "Artistic Soul",
+    image: "https://pbs.twimg.com/media/GiDKGoNWwAA4St7.jpg",
+    desc: "Preserving the vibrant sounds of the South West, echoing the legacy of legendary cultural icons."
+  },
+  {
+    id: 2,
     title: "Halala Kella",
     subtitle: "Sacred Heritage",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYtoNl5BI2UBep0OTqs-dkKU0KbUma0wEkqg&s",
+    image: "https://www.researchgate.net/profile/Admasu-Haile/publication/280830360/figure/fig2/AS:284525247647744@1444847513041/a-Partial-view-of-the-Kati-Halala-walls-photo-by-the-researcher.png",
     desc: "A breathtaking royal fortress showcasing the architectural mastery and hospitality of the Dawuro people."
   },
   {
@@ -22,13 +29,6 @@ const mediaSlides = [
     image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1470&auto=format&fit=crop",
     desc: "The sentinel of our history, where the air carries stories of ancient kings and the spirit of South West Ethiopia."
   },
-  {
-    id: 3,
-    title: "Dawuro Rhythm",
-    subtitle: "Artistic Soul",
-    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1470&auto=format&fit=crop",
-    desc: "Preserving the vibrant sounds of the South West, echoing the legacy of legendary cultural icons."
-  }
 ];
 
 const Home = () => {
@@ -153,10 +153,10 @@ const Home = () => {
           </div>
           <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
             <div className="h-64 bg-zinc-100 dark:bg-zinc-900 rounded-sm overflow-hidden border-b-4 border-[#cc0000]">
-               <img src="https://images.unsplash.com/photo-1523050335392-9bf5675f42e8?q=80&w=1470&auto=format&fit=crop" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Education" />
+               <img src="https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t1.6435-9/152726126_1950742805076274_8412325837325679559_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFkWydWCWuMGkGQTIOORz8hsohwfsEv-SqyiHB-wS_5Ktg2pSlT9V_bMR7F-J8F4q3ue5rAVZbhbPpxpKTbKdzd&_nc_ohc=e9PXNt4PQAYQ7kNvwEF2tK5&_nc_oc=AdlxE-uRPyFamkakAK6E613adrxvguWyA-HZVgRva_4fS37Ci5b4Bc_clLQ8TLdMB4o&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=3-Uvj__PDrT3iVxI7EbMuw&oh=00_AfsgqOTp4eI6fVgGXxCHi17yx60tGbO3-NVqh0oOnD2roA&oe=69C16E48" className="w-full h-full object-cover  hover:grayscale-0 transition-all duration-700" alt="Education" />
             </div>
             <div className="h-64 bg-zinc-100 dark:bg-zinc-900 rounded-sm mt-8 overflow-hidden border-b-4 border-[#ffcc00]">
-               <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1470&auto=format&fit=crop" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Music" />
+               <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1470&auto=format&fit=crop" className="w-full h-full object-cover hover:grayscale-0 transition-all duration-700" alt="Music" />
             </div>
           </div>
         </div>
@@ -173,20 +173,20 @@ const Home = () => {
           <MediaCard 
             title="Heritage Arts" 
             category="Cultural Archive"
-            img="https://images.unsplash.com/photo-1459749411177-042180ceea72?q=80&w=1470&auto=format&fit=crop"
+            img="https://yt3.googleusercontent.com/cNSRmvM_1JBgupxYq-SAdm1TR2Mauh3xMbfl3UWA4pjZ7_0BVYN2i7XOorjyopsLL3juag=s900-c-k-c0x00ffffff-no-rj"
             onClick={() => setSelectedItem({ title: "Music & Art", detail: "Archiving the rhythmic essence of Dawuro, from traditional instruments like the 'Dinka' to modern icons." })}
           />
           <MediaCard 
             title="One Pack One Child" 
             category="Unity Initiative"
-            img="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1470&auto=format&fit=crop"
-            onClick={() => setSelectedItem({ title: "Social Initiative", detail: "Empowering the next generation of Dawuro leaders through collective community support." })}
+            img="https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/556688472_1365428891629236_1508812832666703455_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFYmD4V-oukQ9pniK6oZUc_MTtjwtxOPGoxO2PC3E48aoTaRBD6x50-4v7UNG_qT4ofzzVcdc4fpdjTjXU3aprc&_nc_ohc=mnjyTpbrlX4Q7kNvwFalTTB&_nc_oc=Adm88QV6GC8vA-ECVKmGAO2xQdD67rbpssedB-Dhg0nhYeRgknI-mQXFOH9tGpkkNHY&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=-V0d4dyWxXvzmR3RXJwL5g&oh=00_Aftl6iADKzCwJ1gwiWpMMTB9L1EyTH73Pu9rXE7COkTfSw&oe=69A0256F"
+            onClick={() => setSelectedItem({ title: "Social Initiative", detail: "Empowering the next generation of Dawuro leaders through collective community support. The 'One Pack for One Child' initiative ensures that every student has the tools to succeed." })}
           />
           <MediaCard 
-            title="Sacred Peaks" 
+            title="Special Dawuro Food" 
             category="Exploration"
-            img="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1470&auto=format&fit=crop"
-            onClick={() => setSelectedItem({ title: "Gebero History", detail: "Uncovering the legends buried within the mountains of Dawuro." })}
+            img="https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/486859975_1048748787289382_9146889712630562623_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeGZq_ZzgtSM8sBT8iDMZfhs_I_GFH-uFdn8j8YUf64V2U7IwlFGtkPrdebHgWMY-H4MDplFPPFtmSXhmAYwOj1n&_nc_ohc=d3ibk7sCaOUQ7kNvwG41lGt&_nc_oc=AdmZdlDtDOmz65kcs0lL-lebI0XaDiQxSqreMFr6jSakfHBpkVpTWpchQRd6vbZYjvo&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=0I_63IEiVsQ-XFNHygl1fQ&oh=00_Aftal5lD87VsrnQVKGXRGUk_f5iuo3w1bgE3Ly5mdacwLQ&oe=69A04DEE"
+            onClick={() => setSelectedItem({ title: "Special Dawuro Food", detail: "Uncovering the legends buried within the hidden part of Dawuro cultural food." })}
           />
         </div>
       </section>
@@ -241,7 +241,7 @@ const Home = () => {
 const MediaCard = ({ title, category, img, onClick }) => (
   <motion.div whileHover={{ y: -10 }} className="group cursor-pointer" onClick={onClick}>
     <div className="aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-zinc-900 mb-6 relative border-b-2 border-transparent group-hover:border-[#ffcc00] transition-all">
-      <img src={img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" alt={title} />
+      <img src={img} className="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-1000" alt={title} />
       <div className="absolute inset-0 bg-[#cc0000]/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
         <div className="bg-white dark:bg-[#ffcc00] text-black p-4 rounded-full shadow-2xl scale-0 group-hover:scale-100 transition-transform duration-500">
           <HiPlus size={24} />
@@ -258,18 +258,16 @@ const MediaCard = ({ title, category, img, onClick }) => (
 const ProductCard = ({ product, navigate }) => (
   <motion.div whileHover={{ y: -10 }} onClick={() => navigate('/items')} className="group cursor-pointer">
     <div className="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-zinc-900 mb-6 relative rounded-sm shadow-sm group-hover:shadow-xl transition-all">
-      <img src={product.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" alt={product.name} />
+      <img src={product.img} className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" alt={product.name} />
       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-[2px]">
         <div className="h-1 w-12 bg-[#ffcc00] mb-4" />
         <span className="bg-white text-black px-6 py-3 text-[10px] font-black uppercase tracking-widest">View Heritage</span>
       </div>
     </div>
     <div className="flex justify-between items-start px-1">
-      <div>
         <h3 className="text-black dark:text-white font-black uppercase text-xs tracking-tighter">{product.name}</h3>
         <p className="text-gray-400 text-[9px] mt-1 uppercase font-bold tracking-widest">{product.category}</p>
-      </div>
-      <p className="text-[#cc0000] dark:text-[#ffcc00] font-black text-sm">{product.price}</p>
+      {/* <p className="text-[#cc0000] dark:text-[#ffcc00] font-black text-sm">{product.price}</p> */}
     </div>
   </motion.div>
 );

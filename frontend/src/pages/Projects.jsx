@@ -17,7 +17,7 @@ const projects = [
     desc: "Our flagship initiative. Every year, we collect and distribute comprehensive educational materials to ensure no child in the Dawuro Zone is left behind as the school season begins.",
     impact: "3,500+ Students supported annually",
     icon: <HiOutlineAcademicCap size={28} />,
-    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1473",
+    image: "https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/549307729_1358285369010255_4846773534296182915_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEIDshPpCfGY5njWahmPUhWO56qdthkYdI7nqp22GRh0usPF9fICaxWz2hJvNV_B1rLXpob5nBC9OdGyaRo_4ra&_nc_ohc=10I-toXgSecQ7kNvwGWTW29&_nc_oc=AdkFP3oAlp2vlacHjmITbqRCtpcipUA8Yqgg2PSXZHQVjkIRVlAY3TQbFIsBSciGLfE&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=yYEnKG6Yjwqbtn4Xqsy0jg&oh=00_AfuhgVo7nguKr07YSl69ccYdlbe_EABX5DwjuUfbtSDZow&oe=69A0018C",
     color: "bg-[#cc0000]"
   },
   {
@@ -27,7 +27,7 @@ const projects = [
     desc: "Mapping the cultural, historical, and natural beauty of the Dawuro Zone for a global audience. We act as the digital lens through which the world discovers our heritage.",
     impact: "1M+ Digital Impressions Worldwide",
     icon: <HiOutlineMapPin size={28} />,
-    image: "https://images.unsplash.com/photo-1523050335392-9bf5675f42e8?q=80&w=1470",
+    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/633523337_1361154282718632_3893613749067140767_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeF9k17JCTBaZrZeuLcj4m6mDDAtneVG1R8MMC2d5UbVH9GRqPoPlVPBfwYWA386BbaoX9bvHNtd9__t8bKlzMZE&_nc_ohc=MbHgbbWL1lIQ7kNvwHjA3Gw&_nc_oc=Adn_3CqDb6To2_DfIPoiMyHk1twAD8_XorsCqqhUPvbU9SCKJBzB3Qexo0DNLzE-JCQ&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=JsKi1WhqXTus1IJCQGN7mQ&oh=00_AftpF_decJba6P70yND7pOCbg43upDDvXKlnmp1bxqaPXQ&oe=699FEBB2",
     color: "bg-[#ffcc00]"
   },
   {
@@ -37,8 +37,7 @@ const projects = [
     desc: "A centralized information repository serving the people. We collect regional data and translate it into accessible knowledge to empower local decision-making.",
     impact: "12 Regional Districts Mapped",
     icon: <HiOutlineDocumentMagnifyingGlass size={28} />,
-    image: "https://images.unsplash.com/photo-1524178232363-1fb28f74b671?q=80&w=1470",
-    color: "bg-black"
+    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/471411954_3558178694475018_2923118166379194430_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeETjjz4JdXa7lTOYGzTo50scDF23ZyFPbVwMXbdnIU9tSshIaxNTyJSiuDn739XZzHqkYlpRTxqTwfpr6n0JIJf&_nc_ohc=B44fqZHXw0oQ7kNvwF9Nvnb&_nc_oc=Admh2C_yh4CxMlJQbGAOHFcjl9R3WGvIRjNfXSfPS-6Sl0NTJsHgG5xcnDMWlQq7e-4&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=nkyrHe_JrUL-CPSmhe5lYA&oh=00_AfsX9dx3k5AQtgydKuxgq84mjS3G2CCrsneJp4x7pwWtew&oe=699FF94A"
   },
   {
     id: "GOV-SYNC",
@@ -47,7 +46,7 @@ const projects = [
     desc: "Collaborating with South West Regional Government bodies to streamline public communication and support developmental initiatives through professional media coverage.",
     impact: "Official Media Partner Status",
     icon: <HiOutlineBuildingLibrary size={28} />,
-    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1470",
+    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/491951918_988137896769961_1728972025718456640_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeGpIXr2vnTiLrC6SBvwDFMNNfnEmM_huEw1-cSYz-G4TFZ2VtyyFJSNkbQv06U7WALwYzcv5NJdgIC__AJ20Kh0&_nc_ohc=ZDCZ7iO7MjcQ7kNvwGDuNfe&_nc_oc=AdluVvM7wVviMI9CHCfjWiKwJVpaMCqyo5opypH92THlNpPKjruOdiEcIfOeUxXZvO0&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=mzYynHGIscOFOKQMCY_trA&oh=00_AftJiEi6Ia9gYSW1jPnsHoIpbySucvE09N5WKuaBAtp4RA&oe=699FF350",
     color: "bg-zinc-600"
   }
 ];
@@ -115,7 +114,7 @@ const Projects = () => {
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full aspect-video object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 shadow-2xl"
+                  className="w-full aspect-video object-cover group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 shadow-2xl"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-500" />
               </motion.div>

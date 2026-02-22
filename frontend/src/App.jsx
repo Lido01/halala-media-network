@@ -11,6 +11,7 @@ import Auth from './pages/Auth';
 import Projects from './pages/Projects';
 import Galleries from './pages/Galleries';
 
+import DonationPage from './pages/DonationPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="services" element={<Services />} />
           <Route path="about" element={<About />} />
           <Route path="our-projects" element={<Projects />} />
+          <Route path="donate" element={<DonationPage />} />
         </Route>
         
 

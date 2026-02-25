@@ -289,7 +289,7 @@ const Galleries = () => {
                        <div className="p-6 md:p-10 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border dark:border-white/5 space-y-6">
                           <h4 className="text-[10px] font-black uppercase text-red-600 tracking-[0.3em]">Direct Impact</h4>
                           <p className="text-sm md:text-lg dark:text-gray-300 font-medium">Your support helps us continue documenting these powerful stories in the Dawuro Zone.</p>
-                          <Link to="/donate" className="w-full py-4 md:py-5 bg-black dark:bg-white text-white dark:text-black font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all shadow-xl">
+                          <Link to="donate" className="w-full py-4 md:py-5 bg-black dark:bg-white text-white dark:text-black font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all shadow-xl">
                             <HiOutlineHeart size={18}/> Support This Work
                           </Link>
                        </div>

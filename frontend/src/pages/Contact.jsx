@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import {  
-   HiOutlineUser as HiOutlineMail,
+import emailjs from '@emailjs/browser';
+import { 
+  HiOutlineUser,
+  HiOutlineEnvelope as HiOutlineMail,
   HiOutlinePhone, 
   HiOutlineMapPin, 
   HiOutlineGlobeAlt,
@@ -9,11 +11,31 @@ import {
 } from 'react-icons/hi2';
 
 const Contact = () => {
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const formRef = useRef();
+  const [loading, setLoading] = useState(false);
+  const [formState, setFormState] = useState({ user_name: '', user_email: '', message: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Message sent to NDM Support!");
+    setLoading(true);
+
+    // Replace these strings with your actual EmailJS credentials
+    const SERVICE_ID = "service_lja2ayl";
+    const TEMPLATE_ID = "template_pds3t0h";
+    const PUBLIC_KEY = "kSx08USkdx0tilF12";
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then((result) => {
+          alert("Message sent successfully to NDM Support! We'll get back to you soon.");
+          setFormState({ user_name: '', user_email: '', message: '' });
+      }, (error) => {
+          alert("Failed to send message: " + error.text);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const handleChange = (e) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   return (
@@ -47,12 +69,16 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-10"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest dark:text-gray-400">Full Name</label>
                   <input 
+                    required
+                    name="user_name"
                     type="text" 
+                    value={formState.user_name}
+                    onChange={handleChange}
                     className="w-full bg-gray-50 dark:bg-zinc-900 border-none p-4 focus:ring-2 focus:ring-red-600 transition-all dark:text-white outline-none" 
                     placeholder="Enter your name"
                   />
@@ -60,7 +86,11 @@ const Contact = () => {
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest dark:text-gray-400">Email Address</label>
                   <input 
+                    required
+                    name="user_email"
                     type="email" 
+                    value={formState.user_email}
+                    onChange={handleChange}
                     className="w-full bg-gray-50 dark:bg-zinc-900 border-none p-4 focus:ring-2 focus:ring-red-600 transition-all dark:text-white outline-none" 
                     placeholder="email@example.com"
                   />
@@ -69,20 +99,26 @@ const Contact = () => {
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest dark:text-gray-400">Message</label>
                 <textarea 
+                  required
+                  name="message"
                   rows="5" 
+                  value={formState.message}
+                  onChange={handleChange}
                   className="w-full bg-gray-50 dark:bg-zinc-900 border-none p-4 focus:ring-2 focus:ring-red-600 transition-all dark:text-white outline-none" 
                   placeholder="How can NDM help you?"
                 ></textarea>
               </div>
-              <button className="w-full md:w-auto bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-widest text-xs px-12 py-5 hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all shadow-xl active:scale-95">
-                Send Message
+              <button 
+                disabled={loading}
+                className="w-full md:w-auto bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-widest text-xs px-12 py-5 hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all shadow-xl active:scale-95 disabled:opacity-50"
+              >
+                {loading ? 'Sending...' : 'Send Message'}
               </button>
             </form>
 
-            {/* QUICK CONTACT INFO CARDS */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <ContactMethod icon={<HiOutlinePhone/>} label="Call Us" detail="+251 9xx xxx xxx" />
-              <ContactMethod icon={<HiOutlineMail/>} label="Email" detail="info@ndm.com" />
+              <ContactMethod icon={<HiOutlinePhone/>} label="Call Us" detail="+251 942 541 997" />
+              <ContactMethod icon={<HiOutlineMail/>} label="Email" detail="lidtmariamtesfu@gmail.com" />
             </div>
           </motion.div>
 
@@ -92,41 +128,29 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-8"
           >
-            {/* STYLED MAP CONTAINER */}
-            <div className="relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-square md:aspect-video lg:aspect-square">
-              {/* This is a placeholder for a Google Map iframe or a custom styled Mapbox. 
-                  For now, it's a visual 'location card' which looks better in high-end design. */}
-              <div className="absolute inset-0 grayscale group-hover:grayscale-0 transition-all duration-1000">
+            {/* REAL MAP FOR TARCHA, DAWURO */}
+            <div className="relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-square md:aspect-video lg:aspect-square rounded-2xl">
+              <div className="absolute inset-0 hover:grayscale-0 transition-all duration-1000">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31707.03433555543!2d37.1687481!3d6.8456722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x17af6563f6a27e0b%3A0x6a6d6d8d6d6d6d6d!2sTarcha%2C%20Ethiopia!5e0!3m2!1sen!2set!4v1710000000000" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15876.543232675988!2d37.1656812!3d7.1354321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x17ad99388339d391%3A0x6a0c7c340a6b579!2sTercha!5e0!3m2!1sen!2set!4v1700000000000!5m2!1sen!2set" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
                   allowFullScreen="" 
                   loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                   title="NDM Location"
                 ></iframe>
               </div>
               
-              {/* Map Overlay Detail */}
               <div className="absolute bottom-6 left-6 right-6 bg-white dark:bg-zinc-950 p-6 shadow-2xl border-l-4 border-red-600 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <h4 className="font-black uppercase text-xs tracking-widest mb-1 dark:text-white">Headquarters</h4>
+                <h4 className="font-black uppercase text-xs tracking-widest mb-1 dark:text-white flex items-center gap-2">
+                  <HiOutlineMapPin className="text-red-600"/> Headquarters
+                </h4>
                 <p className="text-gray-500 text-[11px] leading-relaxed">
                   Tarcha City, Dawuro Zone, <br />
                   South West Ethiopia Peoples' Region
                 </p>
-                <div className="mt-4 flex gap-3">
-                  <a href="#" className="text-red-600 text-[10px] font-black uppercase tracking-tighter hover:underline">Get Directions</a>
-                </div>
-              </div>
-            </div>
-
-            {/* SOCIALS & PLATFORMS */}
-            <div className="p-8 border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-              <h3 className="font-black uppercase text-[10px] tracking-[0.3em] mb-6 text-red-600">Our Digital Platforms</h3>
-              <div className="space-y-4">
-                <SocialLink icon={<HiOutlineChatBubbleLeftRight/>} name="Facebook" link="New Dawuro Media" />
-                <SocialLink icon={<HiOutlineGlobeAlt/>} name="YouTube" link="NDM Official Channel" />
               </div>
             </div>
           </motion.div>
@@ -137,9 +161,8 @@ const Contact = () => {
   );
 };
 
-// HELPER COMPONENTS
 const ContactMethod = ({ icon, label, detail }) => (
-  <div className="p-6 bg-gray-50 dark:bg-zinc-900 flex items-center gap-4 group hover:bg-red-600 transition-colors duration-500">
+  <div className="p-6 bg-gray-50 dark:bg-zinc-900 flex items-center gap-4 group hover:bg-red-600 transition-colors duration-500 rounded-xl">
     <div className="text-red-600 group-hover:text-white transition-colors">{React.cloneElement(icon, { size: 24 })}</div>
     <div>
       <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:text-red-200">{label}</p>

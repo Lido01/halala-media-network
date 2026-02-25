@@ -6,23 +6,24 @@ import { HiOutlineUserGroup, HiOutlineGlobeEuropeAfrica, HiOutlineHandRaised, Hi
 const teamMembers = [
   {
     id: 1,
-    name: "Ashenaf Dawuro",
+    name: "Behailu Mathewos",
     role: "Founder & Executive Director",
     image: "https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/550903347_1360059828832809_493224018218068470_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeH1gMJXhbLlpq_-h7I9wJpe4FjYyK2PUZbgWNjIrY9Rli4OKPDCCf1MwVzJbAx9eCJcMOPjb2nAsXeXws5JPdLd&_nc_ohc=9Z_1tlPQYZ8Q7kNvwFrMxnn&_nc_oc=AdkM-1g3Cq9fy-Q6X2W4q8GgYCDUc0L_TebPJTMiChnUw3L-QEdwDyh7YjGr5LTV1yQ&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=6YVayHj4lw4moLKrfQ7Lqg&oh=00_AfuMd_O-VNlt-SCGveQYhtdJIjSFEYJz6izecgP2sAPCmQ&oe=699FE778",
-    bio: "Visionary leader dedicated to bridging Dawuro's ancient history with global digital media."
+    bio: "Dawuro's visionary founder, leading the way in innovation and community development. His vision of a vibrant community is the driving force behind Dawuro's success. With a strong background in entrepreneurship and a passion for community development, Behailu is a driving force behind Dawuro's success.",
   },
   {
     id: 2,
     name: "Million Erbello",
     role: "Creative Developer & Media Leader",
-    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/523267994_5188610077947191_55263879207272779_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeGI3dunD6SL-JjKK5U2qSqMdFmn_WBBxXt0Waf9YEHFex4qj6eDot8WggcXROfZtzOTCfvv6yXqHeS5qTg-O2oU&_nc_ohc=w_AS1qz9iGQQ7kNvwFeJN6H&_nc_oc=Adm4HZKzybZksDp0Tv6yWBEOgJmx3y7ra00Gx9ALZIUSUTo-DnKI8lNJdh-fWLYdjxA&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=yxHLwy4QHgdcu_x82waqig&oh=00_AftoUxmetEKN4xxUpBopeHwGRDlzbgF7ryOeQWKuA2Ttlg&oe=699FF31F"
+    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/523267994_5188610077947191_55263879207272779_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeGI3dunD6SL-JjKK5U2qSqMdFmn_WBBxXt0Waf9YEHFex4qj6eDot8WggcXROfZtzOTCfvv6yXqHeS5qTg-O2oU&_nc_ohc=w_AS1qz9iGQQ7kNvwFeJN6H&_nc_oc=Adm4HZKzybZksDp0Tv6yWBEOgJmx3y7ra00Gx9ALZIUSUTo-DnKI8lNJdh-fWLYdjxA&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=yxHLwy4QHgdcu_x82waqig&oh=00_AftoUxmetEKN4xxUpBopeHwGRDlzbgF7ryOeQWKuA2Ttlg&oe=699FF31F",
+    bio: "Creative developer, media leader, and visionary leader. His expertise in web development and media strategy empowers Dawuro's online presence and fosters a vibrant community.",
   },
   {
     id: 3,
-    name: "Cultural Archivist",
-    role: "Head of Heritage Documentation",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1470&auto=format&fit=crop",
-    bio: "Expert in regional history, ensuring every story told is authentic to our ancestors."
+    name: "Mihiret Mitiku",
+    role: "Social Media Manager and Community Leader",
+    image: "https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/484643519_1219554552883338_53908487542655905_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeHWFTstGg70BldEBa3GjNI5M3GgA0UDDO8zcaADRQMM75sfz_rphU9YD2PXe9X9t8HHV4n9HG32Lf8ZgfEP0Ozy&_nc_ohc=BNTd9rtJwCMQ7kNvwFufjZm&_nc_oc=AdnQ6tlfzeIN4lA076DrJyl1IHYyXA6WBV5bFjDnvneDwluH3zGShNs8hJDMB-8Rxv4&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=4j93hU8eIhm3yNqfeWtSHQ&oh=00_AftNywVYhK2nCvOV0m2J_y03mCtr2o9dK60IgSduPT_aPw&oe=69A12284",
+    bio: "Social media powerhouse, driving engagement and community engagementEmpowering Dawuro's online presence and fostering a vibrant community."
   }
 ];
 
@@ -84,7 +85,7 @@ const About = () => {
               history while embracing the digital future. We are the architects of Dawuro's modern narrative.
             </p>
             <div className="flex gap-10 pt-6">
-              <Stat count="25k+" label="Community Reach" />
+              <Stat count="50k+" label="Community Reach" />
               <Stat count="100+" label="Cultural Archives" />
               <Stat count="South West" label="Home Base" />
             </div>
@@ -125,7 +126,6 @@ const About = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
             <div>
-              <h3 className="text-[#cc0000] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Behind the Lens</h3>
               <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white uppercase tracking-tighter">THE LEADERSHIP</h2>
             </div>
             <div className="flex gap-4">
@@ -149,7 +149,7 @@ const About = () => {
                 </div>
                 <div className="space-y-8">
                   <span className="bg-[#cc0000] text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest">{teamMembers[teamIndex].role}</span>
-                  <h3 className="text-5xl font-black text-black dark:text-white uppercase tracking-tighter">{teamMembers[teamIndex].name}</h3>
+                  <h3 className="text-5xl pt-1 font-black text-black dark:text-white uppercase tracking-tighter">{teamMembers[teamIndex].name}</h3>
                   <p className="text-gray-500 dark:text-gray-400 text-xl italic leading-relaxed">"{teamMembers[teamIndex].bio}"</p>
                   <div className="flex gap-4">
                     {teamMembers.map((_, i) => (

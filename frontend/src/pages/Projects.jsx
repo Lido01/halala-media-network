@@ -8,6 +8,7 @@ import {
   HiOutlineArrowUpRight,
   HiOutlineCalendarDays
 } from 'react-icons/hi2';
+import { Link } from 'react-router-dom';
 
 const projects = [
   {
@@ -134,7 +135,7 @@ const Projects = () => {
                   <span className="block text-[10px] font-black uppercase tracking-widest text-[#cc0000] mb-2">Verified Impact</span>
                   <span className="text-xl font-black text-black dark:text-white uppercase">{project.impact}</span>
                 </div>
-                <button className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] pt-4 hover:text-[#cc0000] dark:text-white transition-all group">
+                <button onClick={()=>alert("This part will be added soon.")} className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] pt-4 hover:text-[#cc0000] dark:text-white transition-all group">
                   View Full Report <HiOutlineArrowUpRight className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" size={18}/>
                 </button>
               </div>
@@ -181,10 +182,10 @@ const Projects = () => {
             Partner with us to provide education to the next generation of Dawuro.
           </p>
           <div className="flex flex-col md:flex-row justify-center gap-6">
-            <button className="bg-[#cc0000] text-white px-12 py-6 font-black uppercase text-xs tracking-[0.3em] hover:bg-black transition-all shadow-xl shadow-[#cc0000]/20">
+            <Link to="donate"  className="bg-[#cc0000] text-white px-12 py-6 font-black uppercase text-xs tracking-[0.3em] hover:bg-black transition-all shadow-xl shadow-[#cc0000]/20">
               Donate Materials
-            </button>
-            <button className="border-2 border-black dark:border-white text-black dark:text-white px-12 py-6 font-black uppercase text-xs tracking-[0.3em] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+            </Link>
+            <button onClick={()=> alert("Please Login/Register in Access Hub with us. We will reach out to you soon.")} className="border-2 border-black dark:border-white text-black dark:text-white px-12 py-6 font-black uppercase text-xs tracking-[0.3em] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
               Become a Partner
             </button>
           </div>

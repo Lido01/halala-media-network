@@ -137,7 +137,7 @@ const Services = () => {
                 ))}
               </div>
 
-              <button className="bg-black dark:bg-[#ffcc00] text-white dark:text-black px-12 py-5 font-black uppercase text-[10px] tracking-[0.4em] mt-10 hover:bg-[#cc0000] hover:text-white transition-all group flex items-center gap-6">
+              <button onClick={()=>alert("Please use the contact page and send your message!")} className="bg-black dark:bg-[#ffcc00] text-white dark:text-black px-12 py-5 font-black uppercase text-[10px] tracking-[0.4em] mt-10 hover:bg-[#cc0000] hover:text-white transition-all group flex items-center gap-6">
                 Connect with DMN <HiArrowLongRight className="group-hover:translate-x-3 transition-transform" size={24}/>
               </button>
             </div>

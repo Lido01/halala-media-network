@@ -104,8 +104,8 @@ const Navbar = () => {
       href: '/services',
       subItems: [
         { title: 'DMN-Offer', desc: 'Cultural protocol and media suites.', icon: <HiOutlineShieldCheck />, href: '/services' },
-        { title: 'Excellence', desc: 'Superior media infrastructure.', icon: <HiOutlineGlobeAlt />, href: '/services/only-we' },
-        { title: 'Partners', desc: 'Exclusive cultural allocations.', icon: <HiOutlineCpuChip />, href: '/services/discount' }
+        { title: 'Donate', desc: "Let's make it happen.", icon: <HiOutlineGlobeAlt />, href: '/services/donate' },
+        { title: 'Partners', desc: 'Exclusive cultural allocations.', icon: <HiOutlineCpuChip />, href: '/services/partners' }
       ] 
     },
     { 
@@ -114,12 +114,12 @@ const Navbar = () => {
       subItems: [
         { title: 'All', desc: 'Authentic Dawuro handwoven wear.', icon: <HiOutlineCpuChip />, href: 'gallery' },
         { title: 'Modern-Mix', desc: 'Contemporary heritage designs.', icon: <HiOutlineCubeTransparent />, href: '/items/modern' },
-        { title: 'Catalog', desc: 'Unified sector solutions.', icon: <HiOutlineArrowRight />, href: '/items/catalog' }
+        { title: 'Catalog', desc: 'Unified sector solutions.', icon: <HiOutlineArrowRight />, href: 'gallery' }
       ] 
     },
     { name: 'About', href: '/about' },
     { name: 'Our Projects', href: '/our-projects' },
-    { name: 'Donate', href: '/donate' }
+    // { name: 'Donate', href: '/donate' }
   ];
 
   return (

@@ -12,13 +12,17 @@ import Projects from './pages/Projects';
 import Galleries from './pages/Galleries';
 
 import DonationPage from './pages/DonationPage';
+import UpdatePassword from './pages/UpdatePassword';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* --- 1. LOGIN --- */}
         <Route path="/login" element={<Auth />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
 
         {/* --- 2. PUBLIC ROUTES --- */}
         <Route path="/" element={<MainLayout />}>
@@ -27,10 +31,8 @@ function App() {
           <Route path="services" element={<Services />} />
           <Route path="about" element={<About />} />
           <Route path="our-projects" element={<Projects />} />
-          <Route path="donate" element={<DonationPage />} />
+          <Route path="services/donate" element={<DonationPage />} />
         </Route>
-        
-
         {/* --- 5. REDIRECTS & 404 --- */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

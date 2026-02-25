@@ -21,17 +21,25 @@ const paymentMethods = [
     id: 'telebirr',
     name: 'Telebirr',
     color: 'bg-[#005bb7]',
-    account: '0912 34 56 78',
-    holder: 'Dawuro Media Foundation',
+    account: '0900 00 00 00',
+    holder: 'Dawuro Media Network',
     instructions: 'Use the "Pay Merchant" option or direct transfer.'
   },
   {
     id: 'cbe',
     name: 'Commercial Bank (CBE)',
     color: 'bg-[#5e2d91]',
-    account: '1000456789123',
-    holder: 'Dawuro Media Foundation',
+    account: '10001111111111',
+    holder: 'Dawuro Media Network',
     instructions: 'Please put "Donation" in the reference field.'
+  },
+    {
+    id: 'Dashin Bank',
+    name: 'Amole Lite',
+    color: 'bg-[#5e2d24]',
+    account: '1234567890',
+    holder: 'Dawuro Media Network',
+    instructions: 'Use the "Amole Lite Connection" option or direct transfer.'
   }
 ];
 
@@ -156,7 +164,7 @@ const DonationPage = () => {
                           <div 
                             key={m.id}
                             onClick={() => setSelectedMethod(m)}
-                            className={`p-5 rounded-3xl border-2 cursor-pointer transition-all flex items-center justify-between ${selectedMethod?.id === m.id ? 'border-[#cc0000] bg-[#cc0000]/5' : 'border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-zinc-800/30 hover:border-zinc-300'}`}
+                            className={`p-5 dark:bg-zinc-900 bg-zinc-50 rounded-3xl border-2 cursor-pointer transition-all flex items-center justify-between ${selectedMethod?.id === m.id ? 'border-[#cc0000] bg-[#cc0000]/5' : 'border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-zinc-800/30 hover:border-zinc-300'}`}
                           >
                             <div className="flex items-center gap-4">
                               <div className={`w-10 h-10 rounded-xl ${m.color} flex items-center justify-center text-white`}>
@@ -221,7 +229,7 @@ const DonationPage = () => {
 
                     <div className="flex items-center justify-center gap-2 opacity-30">
                       <HiOutlineShieldCheck size={16}/>
-                      <span className="text-[9px] font-black uppercase tracking-widest">End-to-End Secure Processing</span>
+                      <span className="text-[9px] font-black uppercase tracking-widest">End-to-End Secure Processing <br /> Please make sure you are registered</span>
                     </div>
 
                   </motion.div>
@@ -240,8 +248,8 @@ const DonationPage = () => {
                     <p className="text-sm text-zinc-500 max-w-[250px] mx-auto font-medium">
                       Your transaction <span className="text-zinc-900 dark:text-white font-black">{tin}</span> is being processed by our finance team.
                     </p>
-                    <div className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-2xl border border-zinc-100 dark:border-white/5 text-[10px] font-bold uppercase tracking-widest">
-                       Integration Note: Automated approval system will launch in late 2026. Manual verification is active.
+                    <div className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-2xl border border-zinc-100 dark:border-white/5 text-[14px] font-bold uppercase tracking-widest">
+                       Integration Note: The full Automatic System will launch in soon. Manual verification is active.
                     </div>
                     <button 
                       onClick={() => { setIsSubmitted(false); setAmount(""); setTin(""); }}

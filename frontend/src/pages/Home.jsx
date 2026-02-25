@@ -85,7 +85,7 @@ const Home = () => {
             
             <div className="flex flex-wrap items-center gap-6 pt-4">
               <button 
-                onClick={() => navigate('/about')}
+                onClick={() => navigate('/gallery')}
                 className="bg-black dark:bg-[#ffcc00] text-white dark:text-black px-10 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-[#cc0000] hover:text-white transition-all shadow-xl active:scale-95"
               >
                 Discover Heritage
@@ -174,13 +174,13 @@ const Home = () => {
             title="Heritage Arts" 
             category="Cultural Archive"
             img="https://yt3.googleusercontent.com/cNSRmvM_1JBgupxYq-SAdm1TR2Mauh3xMbfl3UWA4pjZ7_0BVYN2i7XOorjyopsLL3juag=s900-c-k-c0x00ffffff-no-rj"
-            onClick={() => setSelectedItem({ title: "Music & Art", detail: "Archiving the rhythmic essence of Dawuro, from traditional instruments like the 'Dinka' to modern icons." })}
+            onClick={() => setSelectedItem({ title: "Cultural Service", detail: "Archiving the rhythmic essence of Dawuro, from traditional instruments like the 'Dinka' to modern icons." })}
           />
           <MediaCard 
             title="One Pack One Child" 
             category="Unity Initiative"
             img="https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/556688472_1365428891629236_1508812832666703455_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFYmD4V-oukQ9pniK6oZUc_MTtjwtxOPGoxO2PC3E48aoTaRBD6x50-4v7UNG_qT4ofzzVcdc4fpdjTjXU3aprc&_nc_ohc=mnjyTpbrlX4Q7kNvwFalTTB&_nc_oc=Adm88QV6GC8vA-ECVKmGAO2xQdD67rbpssedB-Dhg0nhYeRgknI-mQXFOH9tGpkkNHY&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=-V0d4dyWxXvzmR3RXJwL5g&oh=00_Aftl6iADKzCwJ1gwiWpMMTB9L1EyTH73Pu9rXE7COkTfSw&oe=69A0256F"
-            onClick={() => setSelectedItem({ title: "Social Initiative", detail: "Empowering the next generation of Dawuro leaders through collective community support. The 'One Pack for One Child' initiative ensures that every student has the tools to succeed." })}
+            onClick={() => setSelectedItem({ title: "Work On Generation", detail: "Empowering the next generation of Dawuro leaders through collective community support. The 'One Pack for One Child' initiative ensures that every student has the tools to succeed." })}
           />
           <MediaCard 
             title="Special Dawuro Food" 
@@ -221,7 +221,7 @@ const Home = () => {
             <span className="text-[#cc0000] font-black tracking-[0.3em] uppercase text-[10px]">Cultural Treasures</span>
             <h2 className="text-4xl md:text-5xl font-black dark:text-white uppercase tracking-tighter mt-2">The Collection</h2>
           </div>
-          <Link to="/items" className="text-black dark:text-white font-black uppercase text-[14px] tracking-widest flex items-center gap-2 hover:text-[#cc0000] transition-all group">
+          <Link to="/gallery" className="text-black dark:text-white font-black uppercase text-[14px] tracking-widest flex items-center gap-2 hover:text-[#cc0000] transition-all group">
             Explore All <HiOutlineArrowLongRight size={24} className="text-[#cc0000] group-hover:translate-x-2 transition-transform" />
           </Link>
         </div>
@@ -256,7 +256,7 @@ const MediaCard = ({ title, category, img, onClick }) => (
 );
 
 const ProductCard = ({ product, navigate }) => (
-  <motion.div whileHover={{ y: -10 }} onClick={() => navigate('/items')} className="group cursor-pointer">
+  <motion.div whileHover={{ y: -10 }} onClick={() => navigate('/gallery')} className="group cursor-pointer">
     <div className="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-zinc-900 mb-6 relative rounded-sm shadow-sm group-hover:shadow-xl transition-all">
       <img src={product.img} className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" alt={product.name} />
       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-[2px]">

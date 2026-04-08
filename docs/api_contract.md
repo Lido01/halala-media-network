@@ -203,7 +203,192 @@
 
 ---
 
+## Foundation API
+
+### List Foundation Programs
+- **GET** `/api/foundation/programs/`
+- **Response:**
+  ```json
+  [
+    {
+      "id": 1,
+      "author": 1,
+      "type": "child",
+      "title": "One Child One Package",
+      "description": "string",
+      "image": "/media/foundation/example.jpg",
+      "report_file": null,
+      "is_active": true,
+      "created_at": "2026-04-04T12:00:00Z",
+      "updated_at": "2026-04-04T12:00:00Z"
+    },
+    ...
+  ]
+  ```
+
+### Create Foundation Program
+- **POST** `/api/foundation/programs/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Request:**
+  ```json
+  {
+    "type": "child",
+    "title": "One Child One Package",
+    "description": "string",
+    "image": "<uploaded_file>",
+    "report_file": "<uploaded_file>",
+    "is_active": true
+  }
+  ```
+- **Response:**
+  (same as list, with your values)
+
+### Update/Delete Foundation Program
+- **PUT/PATCH/DELETE** `/api/foundation/programs/{id}/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Response:**
+  - 200 OK (for update)
+  - 204 No Content (for delete)
+
+---
+
+### List Events
+- **GET** `/api/foundation/events/`
+- **Response:**
+  ```json
+  [
+    {
+      "id": 1,
+      "author": 1,
+      "title": "Event Title",
+      "date": "2026-04-04T18:00:00Z",
+      "location": "string",
+      "description": "string",
+      "thumbnail": "/media/events/example.jpg",
+      "created_at": "2026-04-04T12:00:00Z",
+      "updated_at": "2026-04-04T12:00:00Z"
+    },
+    ...
+  ]
+  ```
+
+### Create Event
+- **POST** `/api/foundation/events/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Request:**
+  ```json
+  {
+    "title": "Event Title",
+    "date": "2026-04-04T18:00:00Z",
+    "location": "string",
+    "description": "string",
+    "thumbnail": "<uploaded_file>"
+  }
+  ```
+- **Response:**
+  (same as list, with your values)
+
+### Update/Delete Event
+- **PUT/PATCH/DELETE** `/api/foundation/events/{id}/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Response:**
+  - 200 OK (for update)
+  - 204 No Content (for delete)
+
+---
+
+## Media Gallery API
+
+### List Albums
+- **GET** `/api/media/albums/`
+- **Response:**
+  ```json
+  [
+    {
+      "id": 1,
+      "title": "Album Title",
+      "description": "string",
+      "cover_image": "/media/gallery/covers/example.jpg",
+      "created_at": "2026-04-04T12:00:00Z"
+    },
+    ...
+  ]
+  ```
+
+### Create Album
+- **POST** `/api/media/albums/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Request:**
+  ```json
+  {
+    "title": "Album Title",
+    "description": "string",
+    "cover_image": "<uploaded_file>"
+  }
+  ```
+- **Response:**
+  (same as list, with your values)
+
+### Update/Delete Album
+- **PUT/PATCH/DELETE** `/api/media/albums/{id}/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Response:**
+  - 200 OK (for update)
+  - 204 No Content (for delete)
+
+---
+
+### List Media Assets
+- **GET** `/api/media/assets/`
+- **Query Params:** `album` (optional)
+- **Response:**
+  ```json
+  [
+    {
+      "id": 1,
+      "album": 1,
+      "title": "Media Title",
+      "description": "string",
+      "media_type": "image",
+      "image_file": "/media/gallery/items/example.jpg",
+      "video_url": "",
+      "video_file": null,
+      "is_featured": false,
+      "created_at": "2026-04-04T12:00:00Z"
+    },
+    ...
+  ]
+  ```
+
+### Create Media Asset
+- **POST** `/api/media/assets/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Request:**
+  ```json
+  {
+    "album": 1,
+    "title": "Media Title",
+    "description": "string",
+    "media_type": "image",
+    "image_file": "<uploaded_file>",
+    "video_url": "",
+    "video_file": null,
+    "is_featured": false
+  }
+  ```
+- **Response:**
+  (same as list, with your values)
+
+### Update/Delete Media Asset
+- **PUT/PATCH/DELETE** `/api/media/assets/{id}/`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Response:**
+  - 200 OK (for update)
+  - 204 No Content (for delete)
+
+---
+
 ## Notes
 - All authenticated endpoints require JWT access token in the `Authorization` header.
-- Only the author of a post can update or delete it.
-- File uploads (e.g., `thumbnail`, `profile_image`) should use multipart/form-data.
+- File uploads (e.g., images, videos) should use multipart/form-data.
+- Only the creator/author can update or delete their objects (if author field exists).

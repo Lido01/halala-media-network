@@ -11,7 +11,7 @@ import {
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../../supabaseClient';
+import apiService from '../api/api';
 
 const Auth = () => {
   const [authMode, setAuthMode] = useState('login'); // 'login', 'signup', or 'forgot'
@@ -19,49 +19,106 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false); // PASSWORD TOGGLE STATE
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState(null); // For success/error messages
+  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
   const navigate = useNavigate();
 
   const handleAuth = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    setMessage(null);
+    setMessageType('');
     try {
       if (authMode === 'login') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        navigate('/projects');
-      } 
-      else if (authMode === 'signup') {
-        const { error } = await supabase.auth.signUp({
-          email,
+        // Login with backend
+        const res = await apiService.post('/api/accounts/login/', {
+          username: username,
+          password
+        });
+        if (res.status === 200 && res.data && res.data.access && res.data.refresh) {
+          localStorage.setItem('access_token', res.data.access);
+          localStorage.setItem('refresh_token', res.data.refresh);
+            // Fetch user profile to get role
+          try {
+            const profileRes = await apiService.get('/api/accounts/profile/');
+            if (profileRes.status === 200 && profileRes.data) {
+              const user = profileRes.data;
+                // Store user role for ProtectedRoute
+                if (user.role) {
+                  localStorage.setItem('user_role', user.role);
+                } else {
+                  localStorage.setItem('user_role', 'user');
+                }
+              setMessage('Login successful! Redirecting...');
+              setMessageType('success');
+              // Redirect based on role
+              setTimeout(() => {
+                  if (user.role === 'superadmin' || user.role === 'admin' || user.role === 'editor') {
+                  navigate('/admin/dashboard');
+                } else {
+                  navigate('/admin/content/');
+                }
+              }, 1200);
+            } else {
+              setMessage('Login succeeded, but failed to fetch profile.');
+              setMessageType('error');
+            }
+          } catch (profileErr) {
+            setMessage('Login succeeded, but failed to fetch profile.');
+            setMessageType('error');
+          }
+        } else {
+          setMessage('Login failed. Please try again.');
+          setMessageType('error');
+        }
+      } else if (authMode === 'signup') {
+        // Register with backend
+        const res = await apiService.post('/api/accounts/register/', {
+          username,
           password,
-          options: { data: { full_name: fullName } }
+          email,
+          phone
         });
-        if (error) throw error;
-        alert("Check your email for the confirmation link!");
-      } 
-      else if (authMode === 'forgot') {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: window.location.origin + '/update-password',
-        });
-        if (error) throw error;
-        alert("Password reset link sent to your email!");
-        setAuthMode('login');
+        if (res.status === 201) {
+          setMessage('Registration successful! You can now log in.');
+          setMessageType('success');
+          setAuthMode('login');
+        } else {
+          setMessage('Registration failed. Please check your details.');
+          setMessageType('error');
+        }
+      } else if (authMode === 'forgot') {
+        setMessage('Password reset is not implemented.');
+        setMessageType('error');
       }
     } catch (error) {
-      alert(error.message);
+      // Improved error handling for backend responses
+      if (error.response && error.response.data) {
+        let errData = error.response.data;
+        if (typeof errData === 'string') {
+          setMessage(errData);
+        } else if (typeof errData === 'object') {
+          // Show all error fields if present
+          const messages = Object.values(errData).flat().join(' ');
+          setMessage(messages || JSON.stringify(errData));
+        } else {
+          setMessage(JSON.stringify(errData));
+        }
+      } else {
+        setMessage(error.message || 'An error occurred.');
+      }
+      setMessageType('error');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSocialLogin = async (provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: provider,
-      options: { redirectTo: window.location.origin + '/projects' }
-    });
-    if (error) alert(error.message);
+  // Social login not implemented for backend API
+  const handleSocialLogin = async () => {
+    setMessage('Social login is not available.');
+    setMessageType('error');
   };
 
   return (
@@ -113,20 +170,38 @@ const Auth = () => {
             </>
           )}
 
+          {/* Show success/error message */}
+          {message && (
+            <div className={`mb-4 text-center text-sm font-bold rounded-lg py-2 px-3 ${messageType === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{message}</div>
+          )}
           <form onSubmit={handleAuth} className="space-y-4">
             <AnimatePresence mode="wait">
               {authMode === 'signup' && (
-                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">
-                  <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-                  <input required type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="FULL NAME" />
-                </motion.div>
+                <>
+                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">
+                    <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                    <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="USERNAME" />
+                  </motion.div>
+                  <div className="relative">
+                    <HiOutlineMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                    <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="EMAIL ADDRESS" />
+                  </div>
+                  <div className="relative">
+                    <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                    <input required type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="PHONE NUMBER" />
+                  </div>
+                </>
               )}
             </AnimatePresence>
 
-            <div className="relative">
-              <HiOutlineMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-              <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="EMAIL ADDRESS" />
-            </div>
+            {authMode === 'login' && (
+              <>
+                <div className="relative">
+                  <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                  <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="USERNAME or EMAIL" />
+                </div>
+              </>
+            )}
 
             {authMode !== 'forgot' && (
               <div className="relative">

@@ -1,7 +1,6 @@
-# API Contract: Accounts & Content
+# API document for halala media
 
 ## Accounts API
-
 ### Register
 - **POST** `/api/accounts/register/`
 - **Request:**

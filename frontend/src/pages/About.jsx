@@ -59,7 +59,7 @@ const About = () => {
             className="flex items-center justify-center gap-4 mb-8"
           >
             <span className="w-12 h-[2px] bg-[#cc0000]" />
-            <span className="text-[#ffcc00] font-black uppercase text-[10px] tracking-[0.6em]">Since 2026</span>
+            <span className="text-[#ffcc00] font-black uppercase text-[10px] tracking-[0.6em]">Since 2013</span>
             <span className="w-12 h-[2px] bg-[#cc0000]" />
           </motion.div>
           <motion.h1 
@@ -68,7 +68,7 @@ const About = () => {
             transition={{ duration: 1 }}
             className="text-6xl md:text-[10rem] font-black text-white uppercase leading-none tracking-tighter"
           >
-            DAWURO<br/><span className="text-[#cc0000]">SOUL.</span>
+            DAWURO<br/><span className="text-[#cc0000]">SOUL</span>
           </motion.h1>
         </div>
       </section>

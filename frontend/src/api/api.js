@@ -1,62 +1,43 @@
+// Simple API service for backend requests
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const BASE_URL = 'http://localhost:8000'; // Change to your backend base URL
 
-const api = axios.create({
-  baseURL: API_BASE_URL,
+const apiService = axios.create({
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
 });
 
-/**
- * REQUEST INTERCEPTOR
- * We use a "fresh" get from localStorage every time to avoid stale tokens.
- */
-api.interceptors.request.use(
+
+// Add a request interceptor to include JWT if available
+apiService.interceptors.request.use(
   (config) => {
-    // IMPORTANT: This must match exactly what you use in Login.jsx
     const token = localStorage.getItem('access_token');
-    
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-      // Log for your debugging (Remove in production)
-      // console.log("Request sent with token:", token.substring(0, 10) + "...");
-    } else {
-      console.warn("No access_token found in localStorage!");
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-/**
- * RESPONSE INTERCEPTOR
- */
-api.interceptors.response.use(
+// Add a response interceptor to handle token expiry (401)
+apiService.interceptors.response.use(
   (response) => response,
   (error) => {
-    // 401 = Token expired/Invalid
-    // 403 = Authenticated but lacks permissions (Role issue)
-    if (error.response && (error.response.status === 401)) {
-      console.error("Session expired. Redirecting...");
-      localStorage.clear();
-      window.location.href = '/login';
+    if (error.response && error.response.status === 401) {
+      // Token expired or invalid, clear storage and redirect to login
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user_role');
+      if (window.location.pathname !== '/auth') {
+        window.location.href = '/auth';
+      }
     }
     return Promise.reject(error);
   }
 );
 
-// --- ENDPOINTS ---
-
-export const login = (credentials) => api.post('/accounts/auth/login/', credentials);
-
-// Staff Management
-export const addStaff = (data) => api.post('/accounts/admin/staff/', data);
-
-// If your Django view requires a trailing slash and POST, keep it like this
-export const listStaff = () => api.get('/accounts/admin/staff/'); 
-
-export const deleteStaff = (id) => api.delete(`/accounts/admin/staff/${id}/`);
-
-export default api;
+export default apiService;

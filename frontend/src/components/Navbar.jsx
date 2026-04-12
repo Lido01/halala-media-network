@@ -20,6 +20,7 @@ import {
   HiOutlineUserGroup,
   HiOutlineSparkles,
 } from 'react-icons/hi2';
+import { HiOutlineAdjustments, HiOutlineCollection } from 'react-icons/hi';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -109,24 +110,34 @@ const Navbar = () => {
       href: '/services',
       subItems: [
         { title: 'Service', desc: 'Digital heartbeat of Dawuro.', icon: <HiOutlineGlobeAlt />, href: '/services' },
-        { title: 'News', desc: 'Real-time media updates.', icon: <HiOutlineDocumentText />, href: '/services/news' },
-        { title: 'Entertainment', desc: 'Cultural & modern shows.', icon: <HiOutlineCpuChip />, href: '/services/entertainment' },
-        { title: 'Interview', desc: 'Profiles of influence.', icon: <HiOutlineShieldCheck />, href: '/services/interview' },
         { 
-          title: 'NDM Foundation', 
-          desc: 'Philanthropic outreach.', 
+          title: 'Foundation', 
+          desc: 'Philanthropic outreach.',
           icon: <HiOutlineHeart />, 
           href: '/services/foundation',
           sub_subItems: [
             { title: 'One Child One Package', icon: <HiOutlineSparkles />, href: '/services/foundation/package' },
-            { title: 'Blood Charity', icon: <HiOutlineHeart />, href: '/services/foundation/blood' },
-            { title: 'Events', icon: <HiOutlineCubeTransparent />, href: '/services/foundation/events' },
-            { title: 'Reports', icon: <HiOutlineDocumentText />, href: '/services/foundation/reports' },
+            { title: 'Charity', icon: <HiOutlineHeart />, href: '/services/foundation/blood' },
             { title: 'Community', icon: <HiOutlineUserGroup />, href: '/services/foundation/community' },
           ]
         },
+                { 
+          title: 'Content', 
+          desc: 'Philanthropic outreach.',
+          icon: <HiOutlineAdjustments />, 
+          href: '/services/content',
+          sub_subItems: [
+            { title: 'News', icon: <HiOutlineCollection />, href: '/services/content/news' },
+            { title: 'Interview', icon: <HiOutlineHeart />, href: '/services/content/interview' },
+            { title: 'Documentary', icon: <HiOutlineUserGroup />, href: '/services/content/documentary' },
+            { title: 'Announcement', icon: <HiOutlineHeart />, href: '/services/content/announcement' },
+            { title: 'Projects', icon: <HiOutlineUserGroup />, href: '/services/content/projects' },
+
+          ]
+        },
         { title: 'Documentary', desc: 'Historical visual archives.', icon: <HiOutlineShieldCheck />, href: '/services/documentary' },
-        { title: 'Dawuro Zone', desc: "Wealth and heritage.", icon: <HiOutlineGlobeAlt />, href: '/services/foundation/dawuro-zone' },
+        { title: 'Events', icon: <HiOutlineCubeTransparent />, href: '/services/foundation/events' },
+        { title: 'Reports', icon: <HiOutlineDocumentText />, href: '/services/foundation/reports' },
       ] 
     },
     { 
@@ -134,11 +145,13 @@ const Navbar = () => {
       href: '/gallery',
       subItems: [
         { title: 'All', desc: 'Complete visual assets.', icon: <HiOutlineCpuChip />, href: '/gallery' },
-        { title: 'Education', desc: 'Learning materials.', icon: <HiOutlineCubeTransparent />, href: '/gallery/education' },
-        { title: 'Full Catalog', desc: 'Heritage gallery.', icon: <HiOutlineArrowRight />, href: '/gallery' }
+        { title: 'Images', desc: 'Photos of NDM.', icon: <HiOutlineCubeTransparent />, href: '/gallery/images' },
+        { title: 'Full Video Catalog', desc: 'Video showing.', icon: <HiOutlineArrowRight />, href: '/gallery/videos' },
+        { title: 'Reels/Short', desc: 'Short video reels of NDM', icon: <HiOutlineDocumentText />, href: '/gallery/reels' },
       ]
     },
-    { name: 'Projects', href: '/our-projects' },
+    // { name: 'Projects', href: '/our-projects' },
+    { name: 'Dawuro Zone', href: '/services/foundation/dawuro-zone' },
     { name: 'About', href: '/about' },
     { name: 'Donate', href: '/donate' },
   ];

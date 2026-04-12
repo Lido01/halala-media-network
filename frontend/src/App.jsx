@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import About from './pages/About';
 import Auth from './pages/Auth';
-import Projects from './pages/Projects';
 import Galleries from './pages/Galleries';
 
 import DonationPage from './pages/DonationPage';
@@ -21,6 +20,7 @@ import DefaultPage from './pages/DefaultPage';
 import OnePackage from './pages/OnePackage';
 import DawuroZone from './pages/services/DawuroZone';
 import AdminSidebarLayout from './components/AdminSidebarLayout';
+import ContentsPage from './pages/ContentsPage';
 
 function App() {
   useEffect(() => {
@@ -47,7 +47,7 @@ function App() {
           <Route path="gallery" element={<Galleries />} />
           <Route path="services" element={<Services />} />
           <Route path="about" element={<About />} />
-          <Route path="our-projects" element={<Projects />} />
+          <Route path="services/content/projects" element={<ContentsPage />} />
           <Route path="donate" element={<DonationPage />} />
 
           {/* Default page */}

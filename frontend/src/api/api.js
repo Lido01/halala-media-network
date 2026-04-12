@@ -1,7 +1,7 @@
 // Simple API service for backend requests
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000'; // Change to your backend base URL
+const BASE_URL = 'http://localhost:8000'; 
 
 const apiService = axios.create({
   baseURL: BASE_URL,
@@ -32,8 +32,8 @@ apiService.interceptors.response.use(
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user_role');
-      if (window.location.pathname !== '/auth') {
-        window.location.href = '/auth';
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
       }
     }
     return Promise.reject(error);

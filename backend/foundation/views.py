@@ -20,7 +20,8 @@ class EventViewSet(viewsets.ModelViewSet):
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 	def get_queryset(self):
-		return get_upcoming_events()
+		# Return all events, newest first
+		return Event.objects.all().order_by('-date')
 
 	def perform_create(self, serializer):
 		serializer.save(author=self.request.user)

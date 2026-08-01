@@ -4,7 +4,7 @@ from .models import FoundationProgram, Event
 class FoundationProgramSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = FoundationProgram
-		fields = '__all__'
+		fields = '__all__'  # All fields including budget, impact, year, quote, location, headline, legacy
 
 class EventSerializer(serializers.ModelSerializer):
 	class Meta:

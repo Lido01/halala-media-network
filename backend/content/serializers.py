@@ -5,7 +5,7 @@ class PostListSerializer(serializers.ModelSerializer):
     """Short version for cards and lists."""
     class Meta:
         model = Post
-        fields = ['id', 'category', 'title', 'slug', 'thumbnail', 'views_count', 'created_at']
+        fields = ['id', 'category', 'title', 'slug', 'thumbnail', 'views_count', 'created_at', 'body']
 
 class PostDetailSerializer(serializers.ModelSerializer):
     """Full version for the article page."""

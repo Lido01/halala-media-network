@@ -5,8 +5,8 @@ services:
     env: python
     # Tells Render your Django code sits in the backend folder
     rootDir: backend        
-    # Installs requirements and prepares your production assets
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    # Installs requirements, builds database tables, and collects production assets automatically
+    buildCommand: pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
     # Starts your live API app using Gunicorn pointing to your core folder setup
     startCommand: gunicorn core.wsgi:application
     envVars:

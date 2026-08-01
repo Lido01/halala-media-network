@@ -2,7 +2,7 @@ from rest_framework import viewsets, response, permissions
 from .models import Post
 from .serializers import PostListSerializer, PostDetailSerializer, PostCreateUpdateSerializer
 from .services import get_posts_by_category, increment_post_view
-from .permissions import IsAuthorOrReadOnly
+from .permissions import IsAuthorOrReadOnly, IsAdminOrReadOnly
 from django.db import transaction
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -10,7 +10,7 @@ class PostViewSet(viewsets.ModelViewSet):
     ViewSet for Post model with author permissions.
     """
     queryset = Post.objects.all().order_by('-created_at')
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAdminOrReadOnly]
 
     def get_queryset(self):
         category = self.request.query_params.get('category')

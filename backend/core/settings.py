@@ -143,15 +143,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # The URL to use when referring to static files (already exists likely)
 STATIC_URL = 'static/'
 
-# Add this line: This is where collectstatic will put all your files
+# This is where collectstatic will put all files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Optional: If you have a custom static folder in your root project
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-CORS_ALLOW_ALL_ORIGINS = True
+# a custom static folder in root project
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -165,3 +163,40 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # 7 days
     
 }
+
+# That Lidetu added
+# Add this at the bottom of settings.py
+CORS_ALLOWED_ORIGINS = [
+    "http://10.240.41.84:5173",  # Default React port
+    "http://localhost:3000",
+    "http://localhost:5173",  # Default Vite port (if using Vite)
+    "https://hachaluportcol.netlify.app",  # Netlify frontend
+]
+
+# Allow all origins for API access
+CORS_ALLOW_ALL_ORIGINS = True
+
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.240.41.84'] 
+
+# Allow cookies/credentials to be sent over the local network
+CORS_ALLOW_CREDENTIALS = True
+
+# Disable strict HTTPS cookie enforcement for local development
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+# for the Host part below added
+import environ
+import os
+
+env = environ.Env(
+    DEBUG=(bool, False) # Defaults to False in production
+)
+# Read .env file if it exists
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])

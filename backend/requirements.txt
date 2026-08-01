@@ -113,8 +113,6 @@ httpx==0.28.1
 httpx-sse==0.4.3
 humanfriendly==10.0
 hyperframe==6.1.0
-hyperlight-sandbox==0.4.0
-hyperlight-sandbox-backend-wasm==0.4.0
 hyperlight-sandbox-python-guest==0.4.0
 idna==3.11
 ImageIO==2.37.2

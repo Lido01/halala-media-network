@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database
+db.sqlite3
+db.sqlite3-journal
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+bin/
+lib/
+include/
+
+# Secrets
+.env
+*.env
+secrets.json
+
+# Static and Media
+staticfiles/
+media/
+static/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Python runtime caches
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.migrations/
+
+# Local development databases
+*.sqlite3
+
+# OS junk files
+.DS_Store
+Thumbs.db

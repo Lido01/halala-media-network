@@ -7,18 +7,6 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Initialize environment management with smart fallbacks
-env = environ.Env(
-    DEBUG=(bool, False),
-    ALLOWED_HOSTS=(list, ['localhost', '127.0.0.1', '10.240.41.118']),
-    CORS_ALLOWED_ORIGINS=(list, [
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "http://10.240.41.118:5173",
-        "https://new-dawuro-media.netlify.app"
-    ])
-)
-
 # Safely look for local .env files
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -129,3 +117,20 @@ SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SAMESITE = 'Lax'
+
+
+# core/settings.py
+
+# 1. Try reading from Render environment variables
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+
+# 2. Add an automated safeguard fallback loop
+# This dynamically includes your real live Render domain no matter what happens!
+if not ALLOWED_HOSTS or 'new-dawuro-media.onrender.com' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS = [
+        'new-dawuro-media.onrender.com',
+        'localhost',
+        '127.0.0.1',
+        '.onrender.com' # This safely allows any Render subdomain variant
+    ]
+

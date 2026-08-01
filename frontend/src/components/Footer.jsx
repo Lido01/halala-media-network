@@ -36,10 +36,10 @@ const Footer = () => {
           <div className="space-y-6">
             <div className="flex flex-col">
               <h3 className="text-2xl font-black text-black dark:text-white uppercase tracking-tighter leading-none">
-                DAWURO MEDIA
+                NEW DAWURO
               </h3>
               <span className="text-[#cc0000] dark:text-[#ffcc00] font-bold text-[10px] tracking-[0.4em] uppercase">
-                Network • DMN
+                MEDIA • NDM
               </span>
             </div>
             

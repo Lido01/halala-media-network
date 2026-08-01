@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 
 const AuthContext = createContext({});
@@ -29,4 +29,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+// Remove useAuth export from this file.
+// Move useAuth to a separate file named useAuth.js in the same folder.

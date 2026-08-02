@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     DEBUG=(bool, False),
     ALLOWED_HOSTS=(list, ['localhost', '127.0.0.1']),
-    CORS_ALLOWED_ORIGINS=(list, ["http://localhost:3000", "http://localhost:5173", "https://new-dawuro-media.netlify.app"])
+    CORS_ALLOWED_ORIGINS=(list, ["http://localhost:3000", "http://localhost:5173", "https://ndm-network.netlify.app"])
 )
 
 # Safely look for local .env files
@@ -130,7 +130,8 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[
     "http://localhost:3000",
     "http://localhost:5173",
-    "https://netlify.app"
+    "https://netlify.app",
+    "https://ndm-network.netlify.app",
 ])
 CORS_ALLOW_CREDENTIALS = True
 

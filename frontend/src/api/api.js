@@ -5,11 +5,12 @@ const BASE_URL = 'https://new-media-backend-c5uc.onrender.com';
 
 const apiService = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true, // MANDATORY: Fixes the browser Network Error when backend uses CORS credentials
+  withCredentials: false, // Set to false because LocalStorage Bearer tokens instead of cookies
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
 
 // Add a request interceptor to include JWT if available
 apiService.interceptors.request.use(

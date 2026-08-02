@@ -12,6 +12,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import apiService from '../api/api';
+import { useAuth } from '../context/useAuth';
 
 const Auth = () => {
   const [authMode, setAuthMode] = useState('login'); // 'login', 'signup', or 'forgot'
@@ -24,6 +25,7 @@ const Auth = () => {
   const [message, setMessage] = useState(null); // For success/error messages
   const [messageType, setMessageType] = useState(''); // 'success' or 'error'
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
 
   const handleAuth = async (e) => {
     e.preventDefault();
@@ -45,12 +47,16 @@ const Auth = () => {
             const profileRes = await apiService.get('/api/accounts/profile/');
             if (profileRes.status === 200 && profileRes.data) {
               const user = profileRes.data;
+              if (user.username) {
+                localStorage.setItem('username', user.username);
+              }
                 // Store user role for ProtectedRoute
                 if (user.role) {
                   localStorage.setItem('user_role', user.role);
                 } else {
                   localStorage.setItem('user_role', 'user');
                 }
+              await refreshUser();
               setMessage('Login successful! Redirecting...');
               setMessageType('success');
               // Redirect based on role
@@ -137,7 +143,7 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 w-full max-w-[600px] px-6">
-        <div className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-[0_32px_64px_-15px_rgba(0,0,0,0.5)]">
+        <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-8 md:p-12 shadow-[0_32px_64px_-15px_rgba(0,0,0,0.5)]">
           
           <header className="text-center mb-10">
             <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-red-500 transition-colors text-[10px] font-black uppercase tracking-[0.3em] mb-6">
@@ -154,11 +160,11 @@ const Auth = () => {
           {authMode !== 'forgot' && (
             <>
               <div className="grid grid-cols-2 gap-4 mb-8">
-                <button onClick={() => handleSocialLogin('google')} className="flex items-center justify-center gap-3 bg-white hover:bg-gray-100 transition-all py-3 px-4 rounded-xl shadow-lg active:scale-95">
+                <button onClick={() => handleSocialLogin('google')} className="flex items-center justify-center gap-3 bg-white hover:bg-gray-100 transition-all py-3 px-4 shadow-lg active:scale-95">
                   <FcGoogle size={20} />
                   <span className="text-black text-[10px] font-black uppercase tracking-wider">Google</span>
                 </button>
-                <button onClick={() => handleSocialLogin('facebook')} className="flex items-center justify-center gap-3 bg-[#1877F2] hover:bg-[#166fe5] transition-all py-3 px-4 rounded-xl shadow-lg active:scale-95">
+                <button onClick={() => handleSocialLogin('facebook')} className="flex items-center justify-center gap-3 bg-[#1877F2] hover:bg-[#166fe5] transition-all py-3 px-4 shadow-lg active:scale-95">
                   <FaFacebook size={20} color="white" />
                   <span className="text-white text-[10px] font-black uppercase tracking-wider">Facebook</span>
                 </button>
@@ -172,7 +178,7 @@ const Auth = () => {
 
           {/* Show success/error message */}
           {message && (
-            <div className={`mb-4 text-center text-sm font-bold rounded-lg py-2 px-3 ${messageType === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{message}</div>
+            <div className={`mb-4 text-center text-sm font-bold py-2 px-3 ${messageType === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{message}</div>
           )}
           <form onSubmit={handleAuth} className="space-y-4">
             <AnimatePresence mode="wait">
@@ -180,15 +186,15 @@ const Auth = () => {
                 <>
                   <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">
                     <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-                    <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="USERNAME" />
+                    <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12  text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="USERNAME" />
                   </motion.div>
                   <div className="relative">
                     <HiOutlineMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-                    <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="EMAIL ADDRESS" />
+                    <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12  text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="EMAIL ADDRESS" />
                   </div>
                   <div className="relative">
                     <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-                    <input required type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="PHONE NUMBER" />
+                    <input required type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12  text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="PHONE NUMBER" />
                   </div>
                 </>
               )}
@@ -198,7 +204,7 @@ const Auth = () => {
               <>
                 <div className="relative">
                   <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-                  <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="USERNAME or EMAIL" />
+                  <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-white/5 border border-white/10 p-4 pl-12  text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" placeholder="USERNAME" />
                 </div>
               </>
             )}
@@ -211,7 +217,7 @@ const Auth = () => {
                   type={showPassword ? "text" : "password"} 
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)} 
-                  className="w-full bg-white/5 border border-white/10 p-4 pl-12 pr-12 rounded-xl text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" 
+                  className="w-full bg-white/5 border border-white/10 p-4 pl-12 pr-12  text-white outline-none focus:border-red-600 focus:bg-white/10 transition-all text-sm placeholder:text-white/20" 
                   placeholder="PASSWORD" 
                 />
                 {/* VIEW/HIDE TOGGLE */}
@@ -233,7 +239,7 @@ const Auth = () => {
               </div>
             )}
 
-            <button disabled={loading} className="w-full bg-red-600 hover:bg-red-700 text-white py-5 rounded-xl font-black uppercase text-[10px] tracking-[0.3em] transition-all shadow-xl active:scale-[0.98] mt-4 disabled:opacity-50">
+            <button disabled={loading} className="w-full bg-red-600 hover:bg-red-700 text-white py-5  font-black uppercase text-[10px] tracking-[0.3em] transition-all shadow-xl active:scale-[0.98] mt-4 disabled:opacity-50">
               {loading ? 'Processing...' : (authMode === 'login' ? 'Sign In Now' : authMode === 'signup' ? 'Join NDM' : 'Send Reset Link')}
             </button>
           </form>

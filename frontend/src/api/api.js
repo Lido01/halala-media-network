@@ -1,20 +1,24 @@
 // Simple API service for backend requests
 import axios from 'axios';
 
-// const BASE_URL = 'http://10.240.41.118:8000'; 
 const BASE_URL = 'https://new-media-backend-c5uc.onrender.com';
 
 const apiService = axios.create({
   baseURL: BASE_URL,
+  withCredentials: true, // MANDATORY: Fixes the browser Network Error when backend uses CORS credentials
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-
 // Add a request interceptor to include JWT if available
 apiService.interceptors.request.use(
   (config) => {
+    // CRITICAL DJANGO FIX: Automatically appends a trailing slash if missing on the endpoint url
+    if (config.url && !config.url.endsWith('/')) {
+      config.url += '/';
+    }
+
     const token = localStorage.getItem('access_token');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;

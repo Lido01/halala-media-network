@@ -23,7 +23,6 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY', default='django-insecure-development-fallback-key-string-replace-me')
 
 # 2. BULLETPROOF ALLOWED_HOSTS FALLBACK
-# FIXED: Removed 'https://' from the production domain. Hostnames must not contain protocols.
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 if not ALLOWED_HOSTS or 'new-media-backend-c5uc.onrender.com' not in ALLOWED_HOSTS:
     ALLOWED_HOSTS = [
@@ -132,12 +131,17 @@ CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[
     "http://localhost:5173",
     "https://ndm-network.netlify.app",
 ])
-CORS_ALLOW_CREDENTIALS = True
 
-# Explicitly permit crucial auth/json header payloads
+# FIXED: Set to False because your frontend uses LocalStorage Authorization tokens, not cookies.
+CORS_ALLOW_CREDENTIALS = False
+
+# FIXED: Explicitly allow authorization headers for JWT exchange.
 CORS_ALLOW_HEADERS = list(default_headers) + [
     "content-type",
     "authorization",
+    "accept",
+    "origin",
+    "x-requested-with",
 ]
 
 # Security toggles adjust smoothly between Local (HTTP) and Deployments (HTTPS)

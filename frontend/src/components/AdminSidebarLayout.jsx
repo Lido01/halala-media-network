@@ -49,6 +49,7 @@ const AdminSidebarLayout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user_role');
+    localStorage.removeItem('username');
     setUser(null);
     navigate('/login');
   };
@@ -58,7 +59,7 @@ const AdminSidebarLayout = () => {
       {/* Mobile Header Bar */}
       <div className="lg:hidden fixed top-0 left-0 w-full z-[80] bg-gradient-to-r from-red-700 via-red-800 to-black text-white flex items-center px-4 h-16 shadow-xl">
         <button
-          className="mr-4 bg-red-700 text-white rounded-full p-2 shadow-2xl"
+          className="mr-4 bg-red-700 text-white p-2 shadow-2xl"
           onClick={() => setMobileOpen(true)}
           aria-label="Open sidebar"
         >

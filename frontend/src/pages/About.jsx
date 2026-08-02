@@ -85,15 +85,16 @@ const About = () => {
               history while embracing the digital future. We are the architects of Dawuro's modern narrative.
             </p>
             <div className="flex gap-10 pt-6">
-              <Stat count="50k+" label="Community Reach" />
-              <Stat count="100+" label="Cultural Archives" />
-              <Stat count="South West" label="Home Base" />
+              {/* <Stat count="50k+" label="Community Reach" /> */}
+              <Stat label="Community Reach" />
+              <Stat label="Cultural Archives" />
+              <Stat label="Home Base" />
             </div>
           </div>
           <div className="relative group">
             <div className="absolute -inset-4 border-2 border-[#cc0000]/20 translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700" />
             <img 
-              src="https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/529411365_1267478112056842_5887702713659867637_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeHK3jcp01Y2DcG8u8BF3WhGdM4OfrI5E050zg5-sjkTTlCsE8oXiChehbvHAM8wt5KS386695XEuf3K20pbzSjZ&_nc_ohc=A6yfgeDZcugQ7kNvwFEk5FK&_nc_oc=AdlAN23F-VrWZS70ccykFaaxCQeI74FOqUUi3-G26fhqsKKNRO-SS6JGGV2PdFWP2Cs&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=8VcpIWAGJ0rf298u4nlLdA&oh=00_AfufgMW6jZ3WJ1tCUG5QfY6l35H5vcZj0qvc4bHYNWxKYA&oe=69A04BB5" 
+              src="https://i.ytimg.com/vi/9yOgo2_FHkI/hqdefault.jpg" 
               className="w-full aspect-[4/5] md:aspect-square object-cover group-hover:grayscale-0 transition-all duration-1000 relative z-10"
               alt="Cultural Gathering"
             />
@@ -177,7 +178,7 @@ const About = () => {
           </h2>
           <div>
             <p className="text-black dark:text-white font-black uppercase tracking-[0.5em] text-xs">Foundation Team</p>
-            <p className="text-[#cc0000] uppercase font-bold tracking-widest text-[9px] mt-2">New Dawuro Media Network</p>
+            <p className="text-[#cc0000] uppercase font-bold tracking-widest text-[9px] mt-2">New Dawuro Media</p>
           </div>
         </div>
       </section>
@@ -200,7 +201,7 @@ const ValueCard = ({ Icon, title, desc }) => (
     whileHover={{ y: -10 }}
     className="bg-white dark:bg-[#0c0c0c] p-10 border border-gray-100 dark:border-white/5 hover:border-[#cc0000] transition-all group"
   >
-    <div className="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-white/5 rounded-full mb-8 group-hover:bg-[#cc0000] group-hover:text-white transition-colors">
+    <div className="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-white/5   mb-8 group-hover:bg-[#cc0000] group-hover:text-white transition-colors">
       <Icon size={24} className="text-gray-400 group-hover:text-white" />
     </div>
     <h4 className="text-black dark:text-white font-black uppercase text-sm tracking-widest mb-4">{title}</h4>

@@ -6,6 +6,14 @@ import Contact from './Contact';
 
 import { products } from '../hooks/productData';
 
+import halala from '../assets/home/halala.jpg'
+import one_package from '../assets/home/one-package.jpg'
+import cloths from '../assets/home/cloths.jpg'
+import food02 from '../assets/home/food.jpg'
+
+import tokki_bea from '../assets/home/tokki-bea.jpg'
+
+
 // Cultural and Media Data with Enhanced Amharic & English Descriptions
 const mediaSlides = [
   {
@@ -19,7 +27,7 @@ const mediaSlides = [
     id: 2,
     title: "ሃላላ ኬላ",
     subtitle: "Sacred Heritage | ቅዱስ ቅርስ",
-    image: "https://www.researchgate.net/profile/Admasu-Haile/publication/280830360/figure/fig2/AS:284525247647744@1444847513041/a-Partial-view-of-the-Kati-Halala-walls-photo-by-the-researcher.png",
+    image: halala,
     desc: "A breathtaking royal fortress showcasing the architectural mastery of the Dawuro people. / የዳውሮ ህዝብን የስነ-ህንፃ ጥበብ እና መስተንግዶ የሚያሳይ አስደናቂ የንግስና ግንብ።"
   },
   {
@@ -91,7 +99,7 @@ const Home = () => {
                 Discover Heritage | ቅርሳችንን ይወቁ
               </button>
               
-              <div className="flex border border-gray-200 dark:border-white/10 rounded-full overflow-hidden">
+              <div className="flex border border-gray-200 dark:border-white/10 overflow-hidden">
                 <button onClick={() => setIndex((index - 1 + mediaSlides.length) % mediaSlides.length)} className="p-4 text-black dark:text-white hover:bg-[#cc0000] hover:text-white transition-all"><HiChevronLeft size={20}/></button>
                 <button onClick={() => setIndex((index + 1) % mediaSlides.length)} className="p-4 text-black dark:text-white hover:bg-[#cc0000] hover:text-white transition-all"><HiChevronRight size={20}/></button>
               </div>
@@ -102,7 +110,7 @@ const Home = () => {
             {mediaSlides.map((_, i) => (
               <div 
                 key={i} 
-                className={`h-1.5 rounded-full transition-all duration-500 ${index === i ? "w-12 bg-[#cc0000]" : "w-4 bg-gray-200 dark:bg-white/10"}`} 
+                className={`h-1.5 transition-all duration-500 ${index === i ? "w-12 bg-[#cc0000]" : "w-4 bg-gray-200 dark:bg-white/10"}`} 
               />
             ))}
           </div>
@@ -153,10 +161,10 @@ const Home = () => {
             </Link>
           </div>
           <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
-            <div className="h-64 bg-zinc-100 dark:bg-zinc-900 rounded-sm overflow-hidden border-b-4 border-[#cc0000]">
-                <img src="https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t1.6435-9/152726126_1950742805076274_8412325837325679559_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFkWydWCWuMGkGQTIOORz8hsohwfsEv-SqyiHB-wS_5Ktg2pSlT9V_bMR7F-J8F4q3ue5rAVZbhbPpxpKTbKdzd&_nc_ohc=e9PXNt4PQAYQ7kNvwEF2tK5&_nc_oc=AdlxE-uRPyFamkakAK6E613adrxvguWyA-HZVgRva_4fS37Ci5b4Bc_clLQ8TLdMB4o&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=3-Uvj__PDrT3iVxI7EbMuw&oh=00_AfsgqOTp4eI6fVgGXxCHi17yx60tGbO3-NVqh0oOnD2roA&oe=69C16E48" className="w-full h-full object-cover hover:scale-105 transition-all duration-700" alt="Education" />
+            <div className="h-64 bg-zinc-100 dark:bg-zinc-900 overflow-hidden border-b-4 border-[#cc0000]">
+                <img src="https://www.researchdive.com/blogImages/UXWWeeGa5Z.jpeg" className="w-full h-full object-cover hover:scale-105 transition-all duration-700" alt="Education" />
             </div>
-            <div className="h-64 bg-zinc-100 dark:bg-zinc-900 rounded-sm mt-8 overflow-hidden border-b-4 border-[#ffcc00]">
+            <div className="h-64 bg-zinc-100 dark:bg-zinc-900 mt-8 overflow-hidden border-b-4 border-[#ffcc00]">
                 <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1470&auto=format&fit=crop" className="w-full h-full object-cover hover:scale-105 transition-all duration-700" alt="Music" />
             </div>
           </div>
@@ -174,7 +182,7 @@ const Home = () => {
           <MediaCard 
             title="Heritage Arts | ጥንታዊ ጥበባት" 
             category="Cultural Archive | የባህል መዝገብ"
-            img="https://pbs.twimg.com/media/GiDKGoNWwAA4St7.jpg"
+            img={cloths}
             onClick={() => setSelectedItem({ 
               title: "Cultural Service | የባህል አገልግሎት", 
               detail: "Archiving the rhythmic essence of Dawuro, from traditional instruments like the 'Dinka' to modern icons. / የዳውሮን የዜማ ይዘት ከባህላዊ መሣሪያዎች እስከ ዘመናዊ ጥበብ ባለሙያዎች ድረስ መመዝገብ።" 
@@ -183,7 +191,7 @@ const Home = () => {
           <MediaCard 
             title="One Pack One Child" 
             category="Unity Initiative | የአንድነት ተነሳሽነት"
-            img="https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/556688472_1365428891629236_1508812832666703455_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFYmD4V-oukQ9pniK6oZUc_MTtjwtxOPGoxO2PC3E48aoTaRBD6x50-4v7UNG_qT4ofzzVcdc4fpdjTjXU3aprc&_nc_ohc=mnjyTpbrlX4Q7kNvwFalTTB&_nc_oc=Adm88QV6GC8vA-ECVKmGAO2xQdD67rbpssedB-Dhg0nhYeRgknI-mQXFOH9tGpkkNHY&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=-V0d4dyWxXvzmR3RXJwL5g&oh=00_Aftl6iADKzCwJ1gwiWpMMTB9L1EyTH73Pu9rXE7COkTfSw&oe=69A0256F"
+            img={one_package}
             onClick={() => setSelectedItem({ 
               title: "Work On Generation | በትውልድ ላይ መስራት", 
               detail: "Empowering the next generation through collective community support. / በትብብር ማህበረሰባዊ ድጋፍ ቀጣዩን ትውልድ ማብቃት። 'አንድ ፓክ ለአንድ ልጅ' ተነሳሽነት እያንዳንዱ ተማሪ ስኬታማ እንዲሆን ግብዓቶችን ያቀርባል።" 
@@ -192,7 +200,7 @@ const Home = () => {
           <MediaCard 
             title="Dawuro Food | የዳውሮ ምግብ" 
             category="Exploration | ፍለጋ"
-            img="https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/486859975_1048748787289382_9146889712630562623_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeGZq_ZzgtSM8sBT8iDMZfhs_I_GFH-uFdn8j8YUf64V2U7IwlFGtkPrdebHgWMY-H4MDplFPPFtmSXhmAYwOj1n&_nc_ohc=d3ibk7sCaOUQ7kNvwG41lGt&_nc_oc=AdmZdlDtDOmz65kcs0lL-lebI0XaDiQxSqreMFr6jSakfHBpkVpTWpchQRd6vbZYjvo&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=0I_63IEiVsQ-XFNHygl1fQ&oh=00_Aftal5lD87VsrnQVKGXRGUk_f5iuo3w1bgE3Ly5mdacwLQ&oe=69A04DEE"
+            img={food02}
             onClick={() => setSelectedItem({ 
               title: "Special Dawuro Food | ልዩ የዳውሮ ምግቦች", 
               detail: "Uncovering the legends buried within the hidden parts of Dawuro cultural food. / በዳውሮ የባህል ምግቦች ውስጥ ያሉ ድንቅ ጣዕሞችን እና ታሪኮችን ማውጣት።" 
@@ -253,7 +261,7 @@ const MediaCard = ({ title, category, img, onClick }) => (
     <div className="aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-zinc-900 mb-6 relative border-b-2 border-transparent group-hover:border-[#ffcc00] transition-all">
       <img src={img} className="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-1000" alt={title} />
       <div className="absolute inset-0 bg-[#cc0000]/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-        <div className="bg-white dark:bg-[#ffcc00] text-black p-4 rounded-full shadow-2xl scale-0 group-hover:scale-100 transition-transform duration-500">
+        <div className="bg-white dark:bg-[#ffcc00] text-black p-4 shadow-2xl scale-0 group-hover:scale-100 transition-transform duration-500">
           <HiPlus size={24} />
         </div>
       </div>
@@ -267,7 +275,7 @@ const MediaCard = ({ title, category, img, onClick }) => (
 
 const ProductCard = ({ product, navigate }) => (
   <motion.div whileHover={{ y: -10 }} onClick={() => navigate('/gallery')} className="group cursor-pointer">
-    <div className="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-zinc-900 mb-6 relative rounded-sm shadow-sm group-hover:shadow-xl transition-all">
+    <div className="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-zinc-900 mb-6 relative shadow-sm group-hover:shadow-xl transition-all">
       <img src={product.img} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000" alt={product.name} />
       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-[2px]">
         <div className="h-1 w-12 bg-[#ffcc00] mb-4" />

@@ -1,6 +1,31 @@
 services:
+  # 1. Spin up the Python Django Web Service
   - type: web
     name: halala-media-backend
     env: python
-    buildCommand: pip install -r requirements.txt && python manage.py migrate
-    startCommand: gunicorn backend.wsgi:application
+    # Tells Render your Django code sits in the backend folder
+    rootDir: backend        
+    # Installs requirements, builds database tables, and collects production assets automatically
+    buildCommand: pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
+    # Starts your live API app using Gunicorn pointing to your core folder setup
+    startCommand: gunicorn core.wsgi:application
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.12.8" # Enforces Python 3.12 architecture
+      - key: ALLOWED_HOSTS
+        value: "new-dawuro-media.onrender.com" # Your actual live Render subdomain
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://new-dawuro-media.netlify.app" # Your actual Netlify frontend link
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: halala-prod-db
+          property: connectionString
+
+# 2. Spin up a clean, managed PostgreSQL database automatically
+databases:
+  - name: halala-prod-db
+    plan: free # Uses Render's free PostgreSQL tier

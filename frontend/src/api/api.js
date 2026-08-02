@@ -1,7 +1,8 @@
 // Simple API service for backend requests
 import axios from 'axios';
 
-const BASE_URL = 'http://10.240.41.118:8000'; 
+// const BASE_URL = 'http://10.240.41.118:8000'; 
+const BASE_URL = 'https://new-media-backend-c5uc.onrender.com';
 
 const apiService = axios.create({
   baseURL: BASE_URL,

@@ -56,7 +56,7 @@ const UpdatePassword = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl"
+          className="bg-white/10 backdrop-blur-2xl border border-white/20   p-8 md:p-12 shadow-2xl"
         >
           {success ? (
             <div className="text-center py-10">

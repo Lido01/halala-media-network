@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     DEBUG=(bool, False),
     ALLOWED_HOSTS=(list, ['localhost', '127.0.0.1']),
-    CORS_ALLOWED_ORIGINS=(list, ["http://localhost:3000", "http://localhost:5173", "https://ndm-network.netlify.app"])
+    CORS_ALLOWED_ORIGINS=(list, ["http://localhost:3000", "http://localhost:5173/", "https://ndm-network.netlify.app/"])
 )
 
 # Safely look for local .env files
@@ -151,7 +151,7 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SAMESITE = 'Lax'
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://ndm-network.netlify.app",
+    "https://ndm-network.netlify.app/",
     "http://localhost:3000",
-    "http://localhost:5173",
+    "http://localhost:5173/",
 ]

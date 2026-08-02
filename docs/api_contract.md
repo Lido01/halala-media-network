@@ -94,6 +94,7 @@
       "category": "news",
       "title": "string",
       "slug": "string",
+      "body": "string",
       "thumbnail": "/media/content/thumbs/example.jpg",
       "views_count": 0,
       "created_at": "2026-04-04T12:00:00Z"
@@ -350,6 +351,7 @@
       "description": "string",
       "media_type": "image",
       "image_file": "/media/gallery/items/example.jpg",
+      "story" : "",
       "video_url": "",
       "video_file": null,
       "is_featured": false,

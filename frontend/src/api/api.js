@@ -1,7 +1,7 @@
 // Simple API service for backend requests
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000'; 
+const BASE_URL = 'http://10.240.41.118:8000'; 
 
 const apiService = axios.create({
   baseURL: BASE_URL,
@@ -32,6 +32,7 @@ apiService.interceptors.response.use(
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user_role');
+      localStorage.removeItem('username');
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
       }

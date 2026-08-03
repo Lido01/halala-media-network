@@ -3,6 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 import dj_database_url
 import environ
+import cloudinary # Explicitly import core engine module
 from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -76,8 +77,27 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': env('CLOUDINARY_API_SECRET', default=''),
 }
 
-# Instruct Django to route user upload media files directly into Cloudinary CDN storage
+# Explicitly configure the modern Django 5.x STORAGES layout dictionary engine
+# This guarantees that media files completely bypass Render and go to Cloudinary
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Keep the legacy fallback tag active for absolute backend module support compatibility
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Initialize explicit core cloudinary configuration initialization parameters
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET'],
+    secure=True
+)
 
 ROOT_URLCONF = 'core.urls'
 AUTH_USER_MODEL = 'accounts.User'
@@ -100,7 +120,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # --- AUTOMATED PERMANENT DATABASE SELECTION ---
-# Fixed the duplicate assignment error and added strict production SSL enforcement rules
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -127,6 +146,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# When Cloudinary is active, these represent core base path parameters
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -147,6 +167,7 @@ SIMPLE_JWT = {
 # --- CORS & NETWORK POLICY SETTINGS ---
 CORS_ALLOWED_ORIGINS = [
     "https://netlify.app",
+    "https://ndm-network.netlify.app", # Added your exact Netlify domain address safely here
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -177,6 +198,7 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 
 CSRF_TRUSTED_ORIGINS = [
     "https://netlify.app",
+    "https://ndm-network.netlify.app", # Added matching trusted secure path origins context
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",

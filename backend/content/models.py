@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.utils.text import slugify
 from accounts.models import User
@@ -13,7 +14,7 @@ class Post(models.Model):
 
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, max_length=255)  # Increased max_length to prevent truncation issues
     thumbnail = models.ImageField(upload_to='content/thumbs/')
     body = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -25,8 +26,28 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
+        # 1. Generate an initial base slug if one wasn't provided or is empty
         if not self.slug:
             self.slug = slugify(self.title)
+        
+        # 2. Loop to guarantee uniqueness before hitting the database
+        base_slug = self.slug
+        original_slug = self.slug
+        counter = 1
+        
+        # Exclude the current instance ID so updating an existing post doesn't trigger a duplicate loop
+        while Post.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+            # Append a short unique 4-character hash (e.g., my-post-a1b2)
+            # This is cleaner than a long numeric counter if multiple identical titles occur
+            unique_suffix = uuid.uuid4().hex[:4]
+            self.slug = f"{base_slug}-{unique_suffix}"
+            counter += 1
+            
+            # Absolute safety fallback to avoid infinite loops
+            if counter > 10:
+                self.slug = f"{base_slug}-{uuid.uuid4().hex[:8]}"
+                break
+
         super().save(*args, **kwargs)
 
     def __str__(self):

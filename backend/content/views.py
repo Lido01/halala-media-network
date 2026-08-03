@@ -21,7 +21,7 @@ class PostViewSet(viewsets.ModelViewSet):
         
         if category:
             # 2. Force it to lowercase and clean up trailing spaces
-            category_clean = category.strip().lower()
+            category_clean = category.strip('/').strip().lower()
             
             # 3. FIX PLURAL TAB MISMATCH: If react asks for "projects", change it to "project" to match Django model choices
             if category_clean == 'projects':

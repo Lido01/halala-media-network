@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
+    'django.contrib.messages',    
+    
+    # CRITICAL POSITION: Cloudinary storage apps MUST be declared right here, 
+    # directly before the staticfiles framework executes!
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary', # Core API module extension
     
     # Third-party extensions
     'rest_framework',
@@ -63,6 +68,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Set up environment dictionary lookups for your Cloudinary account parameters
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': env('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': env('CLOUDINARY_API_SECRET', default=''),
+}
+
+# Instruct Django to route user upload media files directly into Cloudinary CDN storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ROOT_URLCONF = 'core.urls'
 AUTH_USER_MODEL = 'accounts.User'

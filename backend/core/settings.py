@@ -84,12 +84,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+<<<<<<< HEAD
 
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Uses PostgreSQL if DATABASE_URL env variable exists, otherwise falls back to local SQLite
+=======
+# --- AUTOMATED DATABASE SELECTION ---
+>>>>>>> 4c98fce616a8faf538ef32966d9884163ac779d9
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -134,6 +138,10 @@ SIMPLE_JWT = {
 }
 
 # --- CORS & NETWORK POLICY SETTINGS ---
+<<<<<<< HEAD
+=======
+# CRITICAL FIX: Explicitly combine dashboard variables with hardcoded origins so dashboard variables cannot erase localhost.
+>>>>>>> 4c98fce616a8faf538ef32966d9884163ac779d9
 CORS_ALLOWED_ORIGINS = [
     "https://netlify.app",
     "http://localhost:3000",

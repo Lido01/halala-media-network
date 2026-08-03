@@ -58,4 +58,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @transaction.atomic
     def destroy(self, request, *args, **kwargs):
+<<<<<<< HEAD
         return super().destroy(request, *args, **kwargs)
+=======
+        return super().destroy(request, *args, **kwargs)
+>>>>>>> b28f31ce9731316562184c2dae70758789ea6bf8

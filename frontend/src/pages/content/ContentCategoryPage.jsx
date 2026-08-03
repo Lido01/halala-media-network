@@ -10,6 +10,7 @@ const categoryDisplayNames = {
   documentary: 'Documentary',
   announcement: 'Announcement',
   projects: 'Projects',
+  project: 'Projects', // Added fallback to handle singular backend queries seamlessly
 };
 
 const ContentCategoryPage = () => {
@@ -22,12 +23,22 @@ const ContentCategoryPage = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    apiService.get(`/api/content/posts/?category=${category}`)
+
+    // Normalize category value to lowercase
+    let backendCategory = category ? category.trim().toLowerCase() : '';
+
+    // FIX MISMAPPED URL VALUE: Map 'projects' from URL string to singular 'project' expected by Django Choice values
+    if (backendCategory === 'projects') {
+      backendCategory = 'project';
+    }
+
+    apiService.get(`/api/content/posts/?category=${backendCategory}`)
       .then(res => {
         setPosts(res.data);
         setLoading(false);
       })
       .catch(err => {
+        console.error(err);
         setError('Failed to load content.');
         setLoading(false);
       });
@@ -37,7 +48,7 @@ const ContentCategoryPage = () => {
     <div className="min-h-screen bg-white dark:bg-[#050505] transition-colors duration-500 overflow-x-hidden py-24 px-4 md:px-20">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-black text-black dark:text-white uppercase tracking-tighter mb-10">
-          {categoryDisplayNames[category] || category}
+          {categoryDisplayNames[category?.toLowerCase()] || category}
         </h1>
         {loading && <div className="text-gray-500 dark:text-gray-400">Loading...</div>}
         {error && <div className="text-red-500 font-bold">{error}</div>}
@@ -80,7 +91,8 @@ const ContentCategoryPage = () => {
                       <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#cc0000" strokeWidth="2" /><circle cx="12" cy="12" r="4" fill="#cc0000" /></svg>
                       {new Date(post.created_at).toLocaleDateString()}
                     </span>
-                    <Link to={`/contents/${category}/${post.id}`} className="text-[#cc0000] font-bold text-xs uppercase hover:underline transition-colors">Read More</Link>
+                    {/* FIXED NAVIGATION PARAMETER: Tries to route dynamically using clean URL slugs. Falls back to database integer ID safely if missing */}
+                    <Link to={`/contents/${category}/${post.slug || post.id}`} className="text-[#cc0000] font-bold text-xs uppercase hover:underline transition-colors">Read More</Link>
                   </div>
                 </div>
               </motion.div>

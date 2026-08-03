@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Set up environment dictionary lookups for your Cloudinary account parameters
+# --- CLOUDINARY PERMANENT MEDIA STORAGE CONFIGURATION ---
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default=''),
     'API_KEY': env('CLOUDINARY_API_KEY', default=''),
@@ -99,19 +99,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
-import dj_database_url
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Uses PostgreSQL if DATABASE_URL env variable exists, otherwise falls back to local SQLite
+# --- AUTOMATED PERMANENT DATABASE SELECTION ---
+# Fixed the duplicate assignment error and added strict production SSL enforcement rules
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
+        conn_max_age=600,
+        ssl_require=True if env('DATABASE_URL', default=None) else False
     )
 }
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -149,7 +145,6 @@ SIMPLE_JWT = {
 }
 
 # --- CORS & NETWORK POLICY SETTINGS ---
-# CRITICAL FIX: Explicitly combine dashboard variables with hardcoded origins so dashboard variables cannot erase localhost.
 CORS_ALLOWED_ORIGINS = [
     "https://netlify.app",
     "http://localhost:3000",

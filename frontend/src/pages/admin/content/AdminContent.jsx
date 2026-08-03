@@ -276,46 +276,59 @@ const AdminContent = () => {
 								</div>
 
 								<form onSubmit={handleSubmit} className="space-y-4">
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-										<input 
-											name="title" required placeholder="Article Headline" 
-											value={form.title} onChange={handleChange}
-											className="md:col-span-2 p-4 bg-slate-50  border-2 border-transparent focus:border-red-500 focus:bg-white outline-none font-bold"
-										/>
-										<select 
-											name="category" value={form.category} onChange={handleChange} required
-											className="p-4 bg-slate-50  border-2 border-transparent focus:border-red-500 outline-none font-bold"
-										>
-											<option value="">Choose Topic</option>
-											{categories.map(cat => <option key={cat} value={cat}>{cat.toUpperCase()}</option>)}
-										</select>
-										<div className="relative p-4 bg-slate-50  flex items-center gap-2">
-											<HiOutlinePhoto className="text-slate-400" />
-											<input type="file" name="thumbnail" onChange={handleChange} className="text-xs font-bold text-slate-500 w-full file:hidden" />
-										</div>
-									</div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input 
+            name="title" required placeholder="Article Headline" 
+            value={form.title} onChange={handleChange}
+            className="md:col-span-2 p-4 bg-slate-50 border-2 border-transparent focus:border-red-500 focus:bg-white outline-none font-bold"
+        />
+        <select 
+            name="category" value={form.category} onChange={handleChange} required
+            className="p-4 bg-slate-50 border-2 border-transparent focus:border-red-500 outline-none font-bold"
+        >
+            <option value="">Choose Topic</option>
+            {categories.map(cat => <option key={cat} value={cat}>{cat.toUpperCase()}</option>)}
+        </select>
+        
+        {/* FIXED FILE INPUT BLOCK */}
+        <div className="relative p-4 bg-slate-50 flex items-center gap-2">
+            <HiOutlinePhoto className="text-slate-400" />
+            <input 
+                type="file" 
+                name="thumbnail" 
+                accept="image/*"
+                onChange={(e) => {
+                    // CRITICAL FIX: Grab the actual file object blob, not the text path string!
+                    if (e.target.files && e.target.files[0]) {
+                        setForm({ ...form, thumbnail: e.target.files[0] });
+                    }
+                }} 
+                className="text-xs font-bold text-slate-500 w-full file:hidden" 
+            />
+        </div>
+    </div>
 
-									<textarea 
-										name="body" required placeholder="Tell the story..." 
-										value={form.body} onChange={handleChange}
-										className="w-full p-4 bg-slate-50  border-2 border-transparent focus:border-red-500 focus:bg-white outline-none font-medium min-h-[180px]"
-									/>
+    <textarea 
+        name="body" required placeholder="Tell the story..." 
+        value={form.body} onChange={handleChange}
+        className="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-red-500 focus:bg-white outline-none font-medium min-h-[180px]"
+    />
 
-									<div className="flex gap-6 p-4 bg-slate-50 ">
-										<label className="flex items-center gap-2 cursor-pointer group">
-											<input type="checkbox" name="is_featured" checked={form.is_featured} onChange={handleChange} className="w-5 h-5 accent-red-600" />
-											<span className="text-xs font-black uppercase text-slate-400 group-hover:text-red-600">Featured</span>
-										</label>
-										<label className="flex items-center gap-2 cursor-pointer group">
-											<input type="checkbox" name="is_published" checked={form.is_published} onChange={handleChange} className="w-5 h-5 accent-red-600" />
-											<span className="text-xs font-black uppercase text-slate-400 group-hover:text-red-600">Visible to Public</span>
-										</label>
-									</div>
+    <div className="flex gap-6 p-4 bg-slate-50">
+        <label className="flex items-center gap-2 cursor-pointer group">
+            <input type="checkbox" name="is_featured" checked={form.is_featured} onChange={handleChange} className="w-5 h-5 accent-red-600" />
+            <span className="text-xs font-black uppercase text-slate-400 group-hover:text-red-600">Featured</span>
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer group">
+            <input type="checkbox" name="is_published" checked={form.is_published} onChange={handleChange} className="w-5 h-5 accent-red-600" />
+            <span className="text-xs font-black uppercase text-slate-400 group-hover:text-red-600">Visible to Public</span>
+        </label>
+    </div>
 
-									<button disabled={submitting} className="w-full py-5 bg-red-600 hover:bg-red-700 text-white font-black  shadow-xl shadow-red-200 transition-all">
-										{submitting ? 'Syncing...' : editId ? 'Publish Updates' : 'Publish to Feed'}
-									</button>
-								</form>
+    <button disabled={submitting} className="w-full py-5 bg-red-600 hover:bg-red-700 text-white font-black shadow-xl shadow-red-200 transition-all">
+        {submitting ? 'Syncing...' : editId ? 'Publish Updates' : 'Publish to Feed'}
+    </button>
+</form>
 							</div>
 						</div>
 					</div>

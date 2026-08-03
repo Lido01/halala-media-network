@@ -4,6 +4,7 @@ from .serializers import PostListSerializer, PostDetailSerializer, PostCreateUpd
 from .services import increment_post_view  # Removed get_posts_by_category helper to fix filtering here directly
 from .permissions import IsAuthorOrReadOnly, IsAdminOrReadOnly
 from django.db import transaction
+from django.http import Http404
 
 class PostViewSet(viewsets.ModelViewSet):
     """
@@ -38,6 +39,27 @@ class PostViewSet(viewsets.ModelViewSet):
         elif self.action in ['create', 'update', 'partial_update']:
             return PostCreateUpdateSerializer
         return PostListSerializer
+
+    def get_object(self):
+        """Resolve a post by primary key or slug for frontend detail links."""
+        queryset = self.filter_queryset(self.get_queryset())
+        lookup_value = self.kwargs.get(self.lookup_field or 'pk')
+
+        if lookup_value is not None:
+            lookup_value = str(lookup_value).strip()
+
+            if lookup_value.isdigit():
+                post = queryset.filter(pk=lookup_value).first()
+                if post is not None:
+                    self.check_object_permissions(self.request, post)
+                    return post
+
+            post = queryset.filter(slug=lookup_value).first()
+            if post is not None:
+                self.check_object_permissions(self.request, post)
+                return post
+
+        raise Http404
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

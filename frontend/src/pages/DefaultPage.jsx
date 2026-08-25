@@ -62,7 +62,7 @@ const DefaultPage = ({ pageTitle = "Service" }) => {
                   <Link 
                     key={link.name} 
                     to={link.href}
-                    className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all group"
+                    className="flex items-center gap-4 p-4  bg-gray-50 dark:bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all group"
                   >
                     <span className="text-[#cc0000] group-hover:scale-110 transition-transform">
                       {link.icon}

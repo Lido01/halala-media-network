@@ -30,6 +30,24 @@ const FoundationPages = () => {
       .finally(() => setLoading(false));
   }, [type]);
 
+  const resolveReportUrl = (fileUrl) => {
+    if (!fileUrl) return "";
+
+    if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
+      return fileUrl;
+    }
+
+    return `${window.location.origin}${fileUrl.startsWith("/") ? "" : "/"}${fileUrl}`;
+  };
+
+  const openReportInBrowser = () => {
+    const reportUrl = resolveReportUrl(selectedProgram?.report_file);
+    if (!reportUrl) return;
+
+    const viewerUrl = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(reportUrl)}`;
+    window.open(viewerUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-[#050505] pb-20 selection:bg-red-500/30">
       
@@ -162,15 +180,30 @@ const FoundationPages = () => {
                 </div>
 
                 {selectedProgram.report_file && (
-                  <button
-                    onClick={() => window.open(selectedProgram.report_file, '_blank')}
-                    className="inline-flex items-center gap-3 mb-8 bg-blue-600 text-white px-6 py-3 font-black uppercase text-[10px] tracking-widest hover:bg-blue-700 transition-all  "
-                  >
-                    Download Full Report
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 7.5L12 12m0 0l4.5-4.5M12 12V3" />
-                    </svg>
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3 mb-8">
+                    <button
+                      type="button"
+                      onClick={openReportInBrowser}
+                      className="inline-flex items-center justify-center gap-3 bg-blue-600 text-white px-6 py-3 font-black uppercase text-[10px] tracking-widest hover:bg-blue-700 transition-all"
+                    >
+                      Read in Browser
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a4.5 4.5 0 01-5.83 0m5.83 0A4.499 4.499 0 0012 7.5a4.499 4.499 0 00-3.59 6.87m7.18 0L21 21m-9-3.75A3.75 3.75 0 1112 4.5a3.75 3.75 0 010 7.5z" />
+                      </svg>
+                    </button>
+
+                    <a
+                      href={resolveReportUrl(selectedProgram.report_file)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-3 bg-black text-white px-6 py-3 font-black uppercase text-[10px] tracking-widest hover:bg-[#cc0000] transition-all"
+                    >
+                      Open Direct File
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5-4.5L21 3m0 0v6m0-6h-6" />
+                      </svg>
+                    </a>
+                  </div>
                 )}
 
                 {selectedProgram.quote && (
@@ -184,7 +217,7 @@ const FoundationPages = () => {
                     Location <span className="text-black dark:text-white">{selectedProgram.location}</span>
                   </p>
                   {selectedProgram.legacy && (
-                    <p className="text-[10px] font-black text-[#cc0000] uppercase tracking-widest flex justify-between">
+                    <p className="text-[10px] font-black uppercase tracking-widest flex justify-between">
                       Legacy <span>{selectedProgram.legacy}</span>
                     </p>
                   )}

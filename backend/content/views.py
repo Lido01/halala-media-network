@@ -1,20 +1,37 @@
 from rest_framework import viewsets, response, permissions
 from .models import Post
 from .serializers import PostListSerializer, PostDetailSerializer, PostCreateUpdateSerializer
-from .services import get_posts_by_category, increment_post_view
+from .services import increment_post_view  # Removed get_posts_by_category helper to fix filtering here directly
 from .permissions import IsAuthorOrReadOnly, IsAdminOrReadOnly
 from django.db import transaction
+from django.http import Http404
 
 class PostViewSet(viewsets.ModelViewSet):
     """
-    ViewSet for Post model with author permissions.
+    ViewSet for Post model with robust author permissions and bulletproof category filtering.
     """
     queryset = Post.objects.all().order_by('-created_at')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAdminOrReadOnly]
 
     def get_queryset(self):
-        category = self.request.query_params.get('category')
-        return get_posts_by_category(category_name=category)
+        # Start with all active, published posts
+        queryset = Post.objects.filter(is_published=True).order_by('-created_at')
+        
+        # 1. Grab parameter from React request URL (?category=news)
+        category = self.request.query_params.get('category', None)
+        
+        if category:
+            # 2. Force it to lowercase and clean up trailing spaces
+            category_clean = category.strip('/').strip().lower()
+            
+            # 3. FIX PLURAL TAB MISMATCH: If react asks for "projects", change it to "project" to match Django model choices
+            if category_clean == 'projects':
+                category_clean = 'project'
+                
+            # 4. Perform case-insensitive filter match
+            queryset = queryset.filter(category__iexact=category_clean)
+            
+        return queryset
 
     def get_serializer_class(self):
         if self.action in ['retrieve']:
@@ -22,6 +39,27 @@ class PostViewSet(viewsets.ModelViewSet):
         elif self.action in ['create', 'update', 'partial_update']:
             return PostCreateUpdateSerializer
         return PostListSerializer
+
+    def get_object(self):
+        """Resolve a post by primary key or slug for frontend detail links."""
+        queryset = self.filter_queryset(self.get_queryset())
+        lookup_value = self.kwargs.get(self.lookup_field or 'pk')
+
+        if lookup_value is not None:
+            lookup_value = str(lookup_value).strip()
+
+            if lookup_value.isdigit():
+                post = queryset.filter(pk=lookup_value).first()
+                if post is not None:
+                    self.check_object_permissions(self.request, post)
+                    return post
+
+            post = queryset.filter(slug=lookup_value).first()
+            if post is not None:
+                self.check_object_permissions(self.request, post)
+                return post
+
+        raise Http404
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -43,4 +81,3 @@ class PostViewSet(viewsets.ModelViewSet):
     @transaction.atomic
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
-    

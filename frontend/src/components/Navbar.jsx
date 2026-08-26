@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { supabase } from '../../supabaseClient';
+import { useAuth } from '../context/useAuth';
 import { 
   HiBars3BottomRight as HiMenuAlt3,
   HiXMark as HiX,
@@ -22,11 +22,15 @@ import {
 } from 'react-icons/hi2';
 import { HiOutlineAdjustments, HiOutlineCollection } from 'react-icons/hi';
 
+void motion;
+
 const Navbar = () => {
-  const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, isLoggedIn, logout } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('dmn-theme');
+    return savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeSubSub, setActiveSubSub] = useState(null); 
@@ -35,55 +39,24 @@ const Navbar = () => {
   
   const location = useLocation();
   const navigate = useNavigate();
-
-  // AUTH LOGIC
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        setUser(session.user);
-        setIsLoggedIn(true);
-      }
-    };
-    checkUser();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        setUser(session.user);
-        setIsLoggedIn(true);
-      } else {
-        setUser(null);
-        setIsLoggedIn(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const displayName = user?.username || user?.email?.split('@')[0] || 'Member';
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setIsLoggedIn(false);
-    setUser(null);
+    logout();
     navigate('/');
     handleLinkClick();
   };
 
   // THEME LOGIC
   useEffect(() => {
-    const savedTheme = localStorage.getItem('dmn-theme');
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    localStorage.setItem('dmn-theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   const toggleTheme = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
-    document.documentElement.classList.toggle('dark');
+    document.documentElement.classList.toggle('dark', newMode);
     localStorage.setItem('dmn-theme', newMode ? 'dark' : 'light');
   };
 
@@ -114,10 +87,10 @@ const Navbar = () => {
           title: 'Foundation', 
           desc: 'Philanthropic outreach.',
           icon: <HiOutlineHeart />, 
-          href: '/services/foundation',
+          href: '/services/foundation/child',
           sub_subItems: [
-            { title: 'One Child One Package', icon: <HiOutlineSparkles />, href: '/services/foundation/package' },
-            { title: 'Charity', icon: <HiOutlineHeart />, href: '/services/foundation/blood' },
+            { title: 'One Child One Package', icon: <HiOutlineSparkles />, href: '/services/foundation/child' },
+            { title: 'Charity', icon: <HiOutlineHeart />, href: '/services/foundation/charity' },
             { title: 'Community', icon: <HiOutlineUserGroup />, href: '/services/foundation/community' },
           ]
         },
@@ -125,19 +98,17 @@ const Navbar = () => {
           title: 'Content', 
           desc: 'Philanthropic outreach.',
           icon: <HiOutlineAdjustments />, 
-          href: '/services/content',
+          href: '/contents',
           sub_subItems: [
-            { title: 'News', icon: <HiOutlineCollection />, href: '/services/content/news' },
-            { title: 'Interview', icon: <HiOutlineHeart />, href: '/services/content/interview' },
-            { title: 'Documentary', icon: <HiOutlineUserGroup />, href: '/services/content/documentary' },
-            { title: 'Announcement', icon: <HiOutlineHeart />, href: '/services/content/announcement' },
-            { title: 'Projects', icon: <HiOutlineUserGroup />, href: '/services/content/projects' },
-
+            { title: 'News', icon: <HiOutlineCollection />, href: '/contents/news' },
+            { title: 'Interview', icon: <HiOutlineHeart />, href: '/contents/interview' },
+            { title: 'Documentary', icon: <HiOutlineUserGroup />, href: '/contents/documentary' },
+            { title: 'Announcement', icon: <HiOutlineHeart />, href: '/contents/announcement' },
+            { title: 'Projects', icon: <HiOutlineUserGroup />, href: '/contents/projects' },
           ]
         },
-        { title: 'Documentary', desc: 'Historical visual archives.', icon: <HiOutlineShieldCheck />, href: '/services/documentary' },
-        { title: 'Events', icon: <HiOutlineCubeTransparent />, href: '/services/foundation/events' },
-        { title: 'Reports', icon: <HiOutlineDocumentText />, href: '/services/foundation/reports' },
+        { title: 'Events', icon: <HiOutlineCubeTransparent />, href: '/services/events' },
+        // { title: 'Reports', icon: <HiOutlineDocumentText />, href: '/services/foundation/reports' },
       ] 
     },
     { 
@@ -145,9 +116,10 @@ const Navbar = () => {
       href: '/gallery',
       subItems: [
         { title: 'All', desc: 'Complete visual assets.', icon: <HiOutlineCpuChip />, href: '/gallery' },
-        { title: 'Images', desc: 'Photos of NDM.', icon: <HiOutlineCubeTransparent />, href: '/gallery/images' },
-        { title: 'Full Video Catalog', desc: 'Video showing.', icon: <HiOutlineArrowRight />, href: '/gallery/videos' },
-        { title: 'Reels/Short', desc: 'Short video reels of NDM', icon: <HiOutlineDocumentText />, href: '/gallery/reels' },
+        { title: 'Album', desc: 'Curated photo collections.', icon: <HiOutlineCollection />, href: '/gallery/albums' },
+        { title: 'Images', desc: 'Photos of NDM.', icon: <HiOutlineCubeTransparent />, href: '/gallery/image' },
+        { title: 'Full Video Catalog', desc: 'Video showing.', icon: <HiOutlineArrowRight />, href: '/gallery/video' },
+        { title: 'Reels/Short', desc: 'Short video reels of NDM', icon: <HiOutlineDocumentText />, href: '/gallery/reel' },
       ]
     },
     // { name: 'Projects', href: '/our-projects' },
@@ -167,7 +139,7 @@ const Navbar = () => {
       <div className={`bg-[#0c0c0c] text-white/40 py-2 text-[9px] tracking-[0.3em] uppercase transition-all duration-500 hidden lg:block ${scrolled ? 'opacity-0 -translate-y-full' : 'opacity-100'}`}>
         <div className="max-w-[1440px] mx-auto px-10 flex justify-between items-center">
           <div className="flex gap-6">
-            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-[#ffcc00] rounded-full animate-ping" /> Heritage Node: Active</span>
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-[#ffcc00]  animate-ping" /> Heritage Node: Active</span>
             <span className="text-white/60">South West Dawuro Ethiopia Office</span>
           </div>
           <span className="italic font-bold text-white/80">New Dawuro Media • Global Presence</span>
@@ -187,8 +159,8 @@ const Navbar = () => {
           
           <Link to="/" onClick={handleLinkClick} className="flex items-center gap-3 group">
             <div className="relative">
-               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG1T9H15Jzn7wldUe9Rf_EgcMa-5XILOSRn8BHYkKKbg&s" alt="Logo" className="w-11 h-11 rounded-xl shadow-lg border border-gray-200 dark:border-white/10" />
-               <div className="absolute -inset-1 bg-gradient-to-tr from-red-600 to-yellow-500 blur opacity-0 group-hover:opacity-40 transition-opacity rounded-xl" />
+               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG1T9H15Jzn7wldUe9Rf_EgcMa-5XILOSRn8BHYkKKbg&s" alt="Logo" className="w-11 h-11  shadow-lg border border-gray-200 dark:border-white/10" />
+               <div className="absolute -inset-1 bg-gradient-to-tr from-red-600 to-yellow-500 blur opacity-0 group-hover:opacity-40 transition-opacity " />
             </div>
             <div className="flex flex-col">
               <span className="text-black dark:text-white font-black text-2xl tracking-tighter uppercase leading-none">NDM</span>
@@ -228,20 +200,23 @@ const Navbar = () => {
 
           {/* ACTIONS */}
           <div className="flex items-center gap-3">
-            <button onClick={toggleTheme} className="p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-yellow-500 border border-transparent hover:border-yellow-600/20 transition-all">
+            <button onClick={toggleTheme} className="p-2.5  bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-yellow-500 border border-transparent hover:border-yellow-600/20 transition-all">
               {isDarkMode ? <HiSun size={20} /> : <HiMoon size={20} />}
             </button>
 
             <div className="hidden md:flex items-center border-l border-gray-200 dark:border-white/10 pl-4 ml-2 gap-3">
               {isLoggedIn ? (
-                <div className="flex items-center gap-4 bg-gray-50 dark:bg-white/5 p-1.5 pr-4 rounded-full border border-gray-100 dark:border-white/5">
-                  <div className="w-8 h-8 bg-[#ffcc00] rounded-full flex items-center justify-center font-black text-black text-xs shadow-inner">
-                    {user?.email?.charAt(0).toUpperCase()}
+                <div className="flex items-center gap-4 bg-gray-50 dark:bg-white/5 p-1.5 pr-4  border border-gray-100 dark:border-white/5">
+                  <div className="w-8 h-8 bg-[#ffcc00]  flex items-center justify-center font-black text-black text-xs shadow-inner">
+                    {(displayName?.charAt(0) || 'M').toUpperCase()}
                   </div>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-gray-700 dark:text-white/80 max-w-[120px] truncate">
+                    {displayName}
+                  </span>
                   <button onClick={handleLogout} className="text-[#cc0000] hover:scale-110 transition-transform"><HiOutlineLogout size={20} /></button>
                 </div>
               ) : (
-                <Link to="/login" className="flex items-center gap-3 bg-black dark:bg-[#ffcc00] dark:text-black text-white text-[10px] font-black px-6 py-2.5 uppercase tracking-widest transition-all hover:bg-[#cc0000] hover:text-white group rounded-sm shadow-xl shadow-black/10">
+                <Link to="/login" className="flex items-center gap-3 bg-black dark:bg-[#ffcc00] dark:text-black text-white text-[10px] font-black px-6 py-2.5 uppercase tracking-widest transition-all hover:bg-[#cc0000] hover:text-white group  shadow-xl shadow-black/10">
                   Access Hub <HiOutlineArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </Link>
               )}
@@ -284,14 +259,14 @@ const Navbar = () => {
                       <div 
                         key={sub.title} 
                         onMouseEnter={() => sub.sub_subItems && setActiveSubSub(sub.title)}
-                        className={`group/sub px-4 rounded-2xl transition-all duration-300 border ${
+                        className={`group/sub px-4  transition-all duration-300 border ${
                             activeSubSub === sub.title 
                             ? 'bg-white dark:bg-white/5 border-[#cc0000]/20 shadow-xl scale-[1.02]' 
                             : 'border-transparent hover:bg-gray-50 dark:hover:bg-white/[0.03]'
                         }`}
                       >
                         <Link to={sub.href} onClick={handleLinkClick} className="flex items-start gap-4">
-                          <div className={`p-1 rounded-xl transition-colors ${activeSubSub === sub.title ? 'bg-[#cc0000] text-white' : 'bg-gray-100 dark:bg-white/10 text-gray-400 group-hover/sub:text-[#cc0000]'}`}>
+                          <div className={`p-1  transition-colors ${activeSubSub === sub.title ? 'bg-[#cc0000] text-white' : 'bg-gray-100 dark:bg-white/10 text-gray-400 group-hover/sub:text-[#cc0000]'}`}>
                             {React.cloneElement(sub.icon, { size: 16 })}
                           </div>
                           <div className="flex-1">
@@ -318,7 +293,7 @@ const Navbar = () => {
                           className="h-full flex flex-col"
                         >
                           <div className="flex items-center gap-1">
-                             <div className="w-6 h-6 rounded-full bg-[#cc0000]/10 flex items-center justify-center text-[#cc0000]">
+                             <div className="w-6 h-6  bg-[#cc0000]/10 flex items-center justify-center text-[#cc0000]">
                                 {menuItems.find(m => m.name === activeMenu).subItems.find(s => s.title === activeSubSub)?.icon}
                              </div>
                              <h5 className="text-[8px] font-black text-black dark:text-white uppercase tracking-[0.1em]">{activeSubSub}</h5>
@@ -330,7 +305,7 @@ const Navbar = () => {
                                 key={ss.title} 
                                 to={ss.href} 
                                 onClick={handleLinkClick} 
-                                className="flex items-center justify-between p-4 rounded-sm bg-white dark:bg-white/5 border border-transparent hover:border-[#cc0000]/20 hover:shadow-lg transition-all group/ss"
+                                className="flex items-center justify-between p-4  bg-white dark:bg-white/5 border border-transparent hover:border-[#cc0000]/20 hover:shadow-lg transition-all group/ss"
                               >
                                 <div className="flex items-center gap-3">
                                     <span className="text-[#cc0000] group-hover/ss:scale-110 transition-transform">{ss.icon}</span>
@@ -341,7 +316,7 @@ const Navbar = () => {
                             ))}
                           </div>
 
-                          <div className="mt-4 p-4 rounded-2xl bg-[#ffcc00]/10 border border-[#ffcc00]/20">
+                          <div className="mt-4 p-4  bg-[#ffcc00]/10 border border-[#ffcc00]/20">
                              <p className="text-[9px] font-bold text-[#ffcc00] uppercase tracking-widest text-center">Featured Internal Portal</p>
                           </div>
                         </motion.div>
@@ -374,7 +349,7 @@ const Navbar = () => {
                   <span className="text-black dark:text-white font-black text-3xl uppercase tracking-tighter leading-none">NDM</span>
                   <span className="text-[#cc0000] font-bold text-[8px] tracking-[0.3em] uppercase">የዳውሮ ቅርስ አውታረ መረብ</span>
                 </div>
-                <button onClick={() => setIsSidebarOpen(false)} className="p-4 bg-gray-100 dark:bg-white/5 rounded-full dark:text-white active:bg-red-600 transition-colors"><HiX size={24} /></button>
+                <button onClick={() => setIsSidebarOpen(false)} className="p-4 bg-gray-100 dark:bg-white/5  dark:text-white active:bg-red-600 transition-colors"><HiX size={24} /></button>
               </div>
 
               <div className="flex-1 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
@@ -391,10 +366,10 @@ const Navbar = () => {
                       {item.subItems && mobileAccordion === item.name && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden space-y-2 mt-2 ml-2">
                           {item.subItems.map((sub) => (
-                            <div key={sub.title} className="bg-gray-50 dark:bg-white/5 rounded-2xl p-4">
+                            <div key={sub.title} className="bg-gray-50 dark:bg-white/5  p-4">
                               <div className="flex justify-between items-center" onClick={() => sub.sub_subItems && setMobileSubSub(mobileSubSub === sub.title ? null : sub.title)}>
                                 <Link to={sub.href} onClick={handleLinkClick} className="flex items-center gap-3">
-                                  <span className="p-2 bg-white dark:bg-black rounded-lg text-[#cc0000] shadow-sm">{sub.icon}</span>
+                                  <span className="p-2 bg-white dark:bg-black  text-[#cc0000] shadow-sm">{sub.icon}</span>
                                   <span className="text-[11px] font-black dark:text-white uppercase tracking-widest">{sub.title}</span>
                                 </Link>
                                 {sub.sub_subItems && <HiChevronRight className={`transition-transform ${mobileSubSub === sub.title ? 'rotate-90 text-[#cc0000]' : 'text-gray-400'}`} />}
@@ -404,7 +379,7 @@ const Navbar = () => {
                                 <div className="mt-4 ml-8 space-y-4 border-l-2 border-[#ffcc00] pl-4">
                                   {sub.sub_subItems.map(ss => (
                                     <Link key={ss.title} to={ss.href} onClick={handleLinkClick} className="flex items-center gap-2 text-[10px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-[0.1em] hover:text-[#cc0000]">
-                                      <span className="w-1.5 h-1.5 bg-[#cc0000] rounded-full" /> {ss.title}
+                                      <span className="w-1.5 h-1.5 bg-[#cc0000] " /> {ss.title}
                                     </Link>
                                   ))}
                                 </div>
@@ -421,26 +396,26 @@ const Navbar = () => {
               <div className="mt-auto pt-8 border-t border-gray-100 dark:border-white/5 space-y-4">
                 {isLoggedIn ? (
                   <div className="flex flex-col gap-4">
-                    <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-[2rem] border border-gray-100 dark:border-white/10 flex items-center gap-4">
-                      <div className="w-10 h-10 bg-[#ffcc00] rounded-2xl flex items-center justify-center text-black font-black text-xl shadow-lg">
+                    <div className="p-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center gap-4">
+                      <div className="w-10 h-10 bg-[#ffcc00]  flex items-center justify-center text-black font-black text-xl shadow-lg">
                         <HiOutlineLogout size={32} />
                       </div>
                       <div className="flex flex-col">
                         <span className="text-[9px] font-black text-[#cc0000] uppercase tracking-widest leading-none mb-1">Welcome</span>
                         <span className="text-sm font-black dark:text-white uppercase truncate max-w-[120px]">
-                          {user?.user_metadata?.full_name || user?.email?.split('@')[0]}
+                          {displayName}
                         </span>
                       </div>
                     </div>
-                    <button onClick={handleLogout} className="w-full py-3 bg-red-50 dark:bg-red-500/10 text-[#cc0000] font-black uppercase text-xs tracking-widest rounded-2xl border border-red-100 dark:border-red-500/20 transition-all flex items-center justify-center gap-2">Sign Out</button>
+                    <button onClick={handleLogout} className="w-full py-3 bg-red-50 dark:bg-red-500/10 text-[#cc0000] font-black uppercase text-xs tracking-widest  border border-red-100 dark:border-red-500/20 transition-all flex items-center justify-center gap-2">Sign Out</button>
                   </div>
                 ) : (
-                  <Link to="/login" onClick={handleLinkClick} className="flex items-center justify-between py-2 px-4 bg-black dark:bg-[#ffcc00] rounded-[1rem] text-white dark:text-black shadow-xl active:scale-95 transition-all">
+                  <Link to="/login" onClick={handleLinkClick} className="flex items-center justify-between py-2 px-4 bg-black dark:bg-[#ffcc00] text-white dark:text-black shadow-xl active:scale-95 transition-all">
                     <div className="flex flex-col">
                       <span className="text-[8px] font-black uppercase tracking-[0.1em] opacity-70 mb-1">Member Login</span>
                       <span className="text-sm font-black uppercase tracking-tighter">Access Hub</span>
                     </div>
-                    <div className="w-8 h-8 bg-white/20 dark:bg-black/10 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-white/20 dark:bg-black/10  flex items-center justify-center">
                       <HiOutlineArrowRight size={18} />
                     </div>
                   </Link>

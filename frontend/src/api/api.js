@@ -1,10 +1,11 @@
 // Simple API service for backend requests
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000'; 
+const BASE_URL = 'https://new-media-backend-c5uc.onrender.com';
 
 const apiService = axios.create({
   baseURL: BASE_URL,
+  withCredentials: false, // Set to false because LocalStorage Bearer tokens instead of cookies
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,6 +15,11 @@ const apiService = axios.create({
 // Add a request interceptor to include JWT if available
 apiService.interceptors.request.use(
   (config) => {
+    // CRITICAL DJANGO FIX: Automatically appends a trailing slash if missing on the endpoint url
+    if (config.url && !config.url.endsWith('/')) {
+      config.url += '/';
+    }
+
     const token = localStorage.getItem('access_token');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
@@ -32,6 +38,7 @@ apiService.interceptors.response.use(
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user_role');
+      localStorage.removeItem('username');
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
       }

@@ -129,7 +129,7 @@ const Contact = () => {
             className="space-y-8"
           >
             {/* REAL MAP FOR TARCHA, DAWURO */}
-            <div className="relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-square md:aspect-video lg:aspect-square rounded-2xl">
+            <div className="relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-square md:aspect-video lg:aspect-square ">
               <div className="absolute inset-0 hover:grayscale-0 transition-all duration-1000">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15876.543232675988!2d37.1656812!3d7.1354321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x17ad99388339d391%3A0x6a0c7c340a6b579!2sTercha!5e0!3m2!1sen!2set!4v1700000000000!5m2!1sen!2set" 
@@ -162,7 +162,7 @@ const Contact = () => {
 };
 
 const ContactMethod = ({ icon, label, detail }) => (
-  <div className="p-6 bg-gray-50 dark:bg-zinc-900 flex items-center gap-4 group hover:bg-red-600 transition-colors duration-500 rounded-xl">
+  <div className="p-6 bg-gray-50 dark:bg-zinc-900 flex items-center gap-4 group hover:bg-red-600 transition-colors duration-500 ">
     <div className="text-red-600 group-hover:text-white transition-colors">{React.cloneElement(icon, { size: 24 })}</div>
     <div>
       <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:text-red-200">{label}</p>

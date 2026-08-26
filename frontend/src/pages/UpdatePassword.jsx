@@ -56,7 +56,7 @@ const UpdatePassword = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl"
+          className="bg-white/10 backdrop-blur-2xl border border-white/20   p-8 md:p-12 shadow-2xl"
         >
           {success ? (
             <div className="text-center py-10">
@@ -86,7 +86,7 @@ const UpdatePassword = () => {
                     type={showPassword ? "text" : "password"} 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
-                    className="w-full bg-white/5 border border-white/10 p-4 pl-12 pr-12 rounded-xl text-white outline-none focus:border-[#ffcc00] focus:bg-white/10 transition-all text-sm placeholder:text-white/20" 
+                    className="w-full bg-white/5 border border-white/10 p-4 pl-12 pr-12  text-white outline-none focus:border-[#ffcc00] focus:bg-white/10 transition-all text-sm placeholder:text-white/20" 
                     placeholder="NEW PASSWORD" 
                   />
                   <button 
@@ -106,7 +106,7 @@ const UpdatePassword = () => {
                     type={showConfirmPassword ? "text" : "password"} 
                     value={confirmPassword} 
                     onChange={(e) => setConfirmPassword(e.target.value)} 
-                    className="w-full bg-white/5 border border-white/10 p-4 pl-12 pr-12 rounded-xl text-white outline-none focus:border-[#ffcc00] focus:bg-white/10 transition-all text-sm placeholder:text-white/20" 
+                    className="w-full bg-white/5 border border-white/10 p-4 pl-12 pr-12  text-white outline-none focus:border-[#ffcc00] focus:bg-white/10 transition-all text-sm placeholder:text-white/20" 
                     placeholder="CONFIRM PASSWORD" 
                   />
                   <button 
@@ -120,7 +120,7 @@ const UpdatePassword = () => {
 
                 <button 
                   disabled={loading} 
-                  className="w-full bg-[#ffcc00] hover:bg-white text-black py-5 rounded-xl font-black uppercase text-[10px] tracking-[0.3em] transition-all shadow-xl active:scale-[0.98] mt-4 disabled:opacity-50"
+                  className="w-full bg-[#ffcc00] hover:bg-white text-black py-5  font-black uppercase text-[10px] tracking-[0.3em] transition-all shadow-xl active:scale-[0.98] mt-4 disabled:opacity-50"
                 >
                   {loading ? 'Updating...' : 'Update & Sign In'}
                 </button>

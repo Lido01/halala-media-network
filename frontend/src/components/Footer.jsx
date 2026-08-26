@@ -111,8 +111,8 @@ const Footer = () => {
       </div>
       
       {/* BACKGROUND DECOR */}
-      <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#cc0000]/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-[#ffcc00]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#cc0000]/5   blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-[#ffcc00]/5   blur-[100px] pointer-events-none" />
     </footer>
   );
 };
@@ -122,7 +122,7 @@ const Footer = () => {
 const FooterColumn = ({ title, links }) => (
   <div className="space-y-6">
     <h4 className="text-black dark:text-white font-black text-[11px] uppercase tracking-[0.3em] flex items-center gap-2">
-      <span className="w-1.5 h-1.5 bg-[#cc0000] rounded-full" />
+      <span className="w-1.5 h-1.5 bg-[#cc0000]  " />
       {title}
     </h4>
     <ul className="space-y-3">
@@ -143,7 +143,7 @@ const SocialLink = ({ Icon, href, label }) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="h-11 w-11 flex items-center justify-center border border-gray-100 dark:border-white/10 rounded-full text-gray-400 hover:text-white hover:bg-[#cc0000] hover:border-[#cc0000] shadow-sm hover:shadow-lg hover:shadow-[#cc0000]/20 transition-all duration-300"
+    className="h-11 w-11 flex items-center justify-center border border-gray-100 dark:border-white/10   text-gray-400 hover:text-white hover:bg-[#cc0000] hover:border-[#cc0000] shadow-sm hover:shadow-lg hover:shadow-[#cc0000]/20 transition-all duration-300"
   >
     <Icon size={18} />
   </a>

@@ -31,7 +31,7 @@ const services = [
     desc: "Beyond media, we are a force for good. Through our 'One Pack One Child' initiative and educational workshops, we use media to drive social change and youth empowerment.",
     features: ["Education Material Drive", "Youth Media Training", "Regional Charity Events"],
     icon: <HiOutlineAcademicCap size={32} />,
-    img: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/505177278_1028266912757059_8262146874356443306_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFg9GIWBT1WO1bCxo1RRuCW5zuFXknTSZznO4VeSdNJnOoFRMSFn2LsqCaNH7hEkSEBsumS-kl0fm3AxE6Fk-tQ&_nc_ohc=b7VXEDznTXgQ7kNvwG5PljD&_nc_oc=AdlhD2bkxlbSVFAO4i6yrjmkjtyNxKqgGLqWF-YOo9KtSXypbIRpDMl6fq4PW1KvCpw&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=lHYsLkQT7CS9wgo_HAzA_g&oh=00_AfsOC6xzyVcAzdkmeQQYCgNsHKvYEK3Sj4BOekNMQ1Uhqw&oe=699FEE8B"
+    img: "https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/481982046_956861496564268_5299764918254020580_n.jpg?stp=dst-jpg_tt6&cstp=mx720x480&ctp=s720x480&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFhG_2JjMcGU2YaTDke1F76R-62oda3fyFH7rah1rd_ITz3xko0gQkgcOTMtR2vaCmLgk1hAjsQoYBmPgMJo-qS&_nc_ohc=K7Wq6xo_HXcQ7kNvwEIC_nI&_nc_oc=Adorq20MNv3JMLujqIrXF6AUf79fMB7mb3sArHOdvY8pZ3EYWS_KGIP1suZhtGqeUyg&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=muQ4Y6BXywZ7Z4H5xV_28w&_nc_ss=7b2a8&oh=00_AQGNI1hzKeiru-nl7765voXYpxK3FeGpR_7AXnfZ3LHalA&oe=6A72796B"
   }
 ];
 
@@ -111,7 +111,7 @@ const Services = () => {
             {/* Text Side */}
             <div className="w-full lg:w-1/2 space-y-8">
               <div className="flex items-center gap-4">
-                <div className="p-4 bg-gray-50 dark:bg-zinc-900 text-[#cc0000] dark:text-[#ffcc00] rounded-full">
+                <div className="p-4 bg-gray-50 dark:bg-zinc-900 text-[#cc0000] dark:text-[#ffcc00]  ">
                   {service.icon}
                 </div>
                 <div className="h-[2px] w-20 bg-gray-100 dark:bg-white/10" />

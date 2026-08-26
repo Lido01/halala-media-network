@@ -2,28 +2,38 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineUserGroup, HiOutlineGlobeEuropeAfrica, HiOutlineHandRaised, HiOutlineCheckBadge, HiChevronRight, HiChevronLeft } from 'react-icons/hi2';
 
+import abe_ceo from '../assets/team/abe-ceo.jpg';
+import lidetu from '../assets/team/lidetu-profile.png';
+
 // Team Data
 const teamMembers = [
   {
     id: 1,
     name: "Behailu Mathewos",
     role: "Founder & Executive Director",
-    image: "https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/550903347_1360059828832809_493224018218068470_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeH1gMJXhbLlpq_-h7I9wJpe4FjYyK2PUZbgWNjIrY9Rli4OKPDCCf1MwVzJbAx9eCJcMOPjb2nAsXeXws5JPdLd&_nc_ohc=9Z_1tlPQYZ8Q7kNvwFrMxnn&_nc_oc=AdkM-1g3Cq9fy-Q6X2W4q8GgYCDUc0L_TebPJTMiChnUw3L-QEdwDyh7YjGr5LTV1yQ&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=6YVayHj4lw4moLKrfQ7Lqg&oh=00_AfuMd_O-VNlt-SCGveQYhtdJIjSFEYJz6izecgP2sAPCmQ&oe=699FE778",
+    image: abe_ceo,
     bio: "Dawuro's visionary founder, leading the way in innovation and community development. His vision of a vibrant community is the driving force behind Dawuro's success. With a strong background in entrepreneurship and a passion for community development, Behailu is a driving force behind Dawuro's success.",
   },
   {
     id: 2,
     name: "Million Erbello",
-    role: "Creative Developer & Media Leader",
-    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/523267994_5188610077947191_55263879207272779_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeGI3dunD6SL-JjKK5U2qSqMdFmn_WBBxXt0Waf9YEHFex4qj6eDot8WggcXROfZtzOTCfvv6yXqHeS5qTg-O2oU&_nc_ohc=w_AS1qz9iGQQ7kNvwFeJN6H&_nc_oc=Adm4HZKzybZksDp0Tv6yWBEOgJmx3y7ra00Gx9ALZIUSUTo-DnKI8lNJdh-fWLYdjxA&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=yxHLwy4QHgdcu_x82waqig&oh=00_AftoUxmetEKN4xxUpBopeHwGRDlzbgF7ryOeQWKuA2Ttlg&oe=699FF31F",
+    role: "Media Leader",
+    image: "https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/523267994_5188610077947191_55263879207272779_n.jpg?stp=dst-jpg_tt6&cstp=mx960x957&ctp=s960x957&_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGI3dunD6SL-JjKK5U2qSqMdFmn_WBBxXt0Waf9YEHFex4qj6eDot8WggcXROfZtzOTCfvv6yXqHeS5qTg-O2oU&_nc_ohc=pVJ9-YhPRV0Q7kNvwE-3lKE&_nc_oc=AdrjX74VA6QjjkSwWoveVdT9tl5L_FigC2mdg-6OTzF2GWfcFuEJW9h54rUgyYgMEmI&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=V4b--7vWe3hJFTZnnnbKrQ&_nc_ss=7b2a8&oh=00_AQEp9bcyJH-pr2Fti8VV3X6i6dBcTh4eY-5KJUMLHjR0TQ&oe=6A77B89F",
     bio: "Creative developer, media leader, and visionary leader. His expertise in web development and media strategy empowers Dawuro's online presence and fosters a vibrant community.",
   },
   {
     id: 3,
-    name: "Mihiret Mitiku",
-    role: "Social Media Manager and Community Leader",
-    image: "https://z-p3-scontent.fadd1-1.fna.fbcdn.net/v/t39.30808-6/484643519_1219554552883338_53908487542655905_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeHWFTstGg70BldEBa3GjNI5M3GgA0UDDO8zcaADRQMM75sfz_rphU9YD2PXe9X9t8HHV4n9HG32Lf8ZgfEP0Ozy&_nc_ohc=BNTd9rtJwCMQ7kNvwFufjZm&_nc_oc=AdnQ6tlfzeIN4lA076DrJyl1IHYyXA6WBV5bFjDnvneDwluH3zGShNs8hJDMB-8Rxv4&_nc_zt=23&_nc_ht=z-p3-scontent.fadd1-1.fna&_nc_gid=4j93hU8eIhm3yNqfeWtSHQ&oh=00_AftNywVYhK2nCvOV0m2J_y03mCtr2o9dK60IgSduPT_aPw&oe=69A12284",
+    name: "Firewoyn Menge",
+    role: "Social Media Manager and Community Engagement Specialist",
+    image: "https://i.ytimg.com/vi/9yOgo2_FHkI/hqdefault.jpg",
     bio: "Social media powerhouse, driving engagement and community engagementEmpowering Dawuro's online presence and fostering a vibrant community."
+  },
+    {
+    id: 3,
+    name: "Lidetu Tesfaye",
+    role: "Software Developer and Tech Enthusiast",
+    image: lidetu,
+    bio: "Software developer and tech leader, driving innovation and digital transformation for Dawuro."
   }
 ];
 
@@ -85,15 +95,16 @@ const About = () => {
               history while embracing the digital future. We are the architects of Dawuro's modern narrative.
             </p>
             <div className="flex gap-10 pt-6">
-              <Stat count="50k+" label="Community Reach" />
-              <Stat count="100+" label="Cultural Archives" />
-              <Stat count="South West" label="Home Base" />
+              {/* <Stat count="50k+" label="Community Reach" /> */}
+              <Stat label="Community Reach" />
+              <Stat label="Cultural Archives" />
+              <Stat label="Home Base" />
             </div>
           </div>
           <div className="relative group">
             <div className="absolute -inset-4 border-2 border-[#cc0000]/20 translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700" />
             <img 
-              src="https://z-p3-scontent.fadd2-1.fna.fbcdn.net/v/t39.30808-6/529411365_1267478112056842_5887702713659867637_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeHK3jcp01Y2DcG8u8BF3WhGdM4OfrI5E050zg5-sjkTTlCsE8oXiChehbvHAM8wt5KS386695XEuf3K20pbzSjZ&_nc_ohc=A6yfgeDZcugQ7kNvwFEk5FK&_nc_oc=AdlAN23F-VrWZS70ccykFaaxCQeI74FOqUUi3-G26fhqsKKNRO-SS6JGGV2PdFWP2Cs&_nc_zt=23&_nc_ht=z-p3-scontent.fadd2-1.fna&_nc_gid=8VcpIWAGJ0rf298u4nlLdA&oh=00_AfufgMW6jZ3WJ1tCUG5QfY6l35H5vcZj0qvc4bHYNWxKYA&oe=69A04BB5" 
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRprl0fPadr3jghYHJXJI7PxgSi9LGpHlAcw2k48DcL6vusp60uWpqp9Tq1&s=10" 
               className="w-full aspect-[4/5] md:aspect-square object-cover group-hover:grayscale-0 transition-all duration-1000 relative z-10"
               alt="Cultural Gathering"
             />
@@ -177,7 +188,7 @@ const About = () => {
           </h2>
           <div>
             <p className="text-black dark:text-white font-black uppercase tracking-[0.5em] text-xs">Foundation Team</p>
-            <p className="text-[#cc0000] uppercase font-bold tracking-widest text-[9px] mt-2">New Dawuro Media Network</p>
+            <p className="text-[#cc0000] uppercase font-bold tracking-widest text-[9px] mt-2">New Dawuro Media</p>
           </div>
         </div>
       </section>
@@ -200,7 +211,7 @@ const ValueCard = ({ Icon, title, desc }) => (
     whileHover={{ y: -10 }}
     className="bg-white dark:bg-[#0c0c0c] p-10 border border-gray-100 dark:border-white/5 hover:border-[#cc0000] transition-all group"
   >
-    <div className="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-white/5 rounded-full mb-8 group-hover:bg-[#cc0000] group-hover:text-white transition-colors">
+    <div className="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-white/5   mb-8 group-hover:bg-[#cc0000] group-hover:text-white transition-colors">
       <Icon size={24} className="text-gray-400 group-hover:text-white" />
     </div>
     <h4 className="text-black dark:text-white font-black uppercase text-sm tracking-widest mb-4">{title}</h4>
